@@ -4,9 +4,7 @@ using SkiaSharp;
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Net;
-using System.Reflection;
 using Mapsui.VectorTileLayers.Core.Interfaces;
 using Mapsui.VectorTileLayers.Core.Enums;
 
@@ -99,8 +97,8 @@ namespace Mapsui.VectorTileLayers.OpenMapTiles
 
             var bitmapAtlasData = SKData.Create(bitmapAtlasStream);
             var bitmapAtlas = SKImage.FromEncodedData(bitmapAtlasData);
-
-            CreateSprites(json, bitmapAtlas);
+            if (bitmapAtlas != null)
+                CreateSprites(json, bitmapAtlas);
         }
 
         /// <summary>

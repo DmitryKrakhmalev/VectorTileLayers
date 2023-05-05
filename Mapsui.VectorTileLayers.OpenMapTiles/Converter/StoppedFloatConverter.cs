@@ -4,6 +4,8 @@ using System;
 using System.Collections.Generic;
 using Mapsui.VectorTileLayers.OpenMapTiles.Expressions;
 using Mapsui.VectorTileLayers.OpenMapTiles.Json;
+using Mapsui.Logging;
+using Mapsui.VectorTileLayers.OpenMapTiles.Extensions;
 
 namespace Mapsui.VectorTileLayers.OpenMapTiles.Converter
 {
@@ -19,26 +21,38 @@ namespace Mapsui.VectorTileLayers.OpenMapTiles.Converter
             Type objectType, object existingValue, JsonSerializer serializer)
         {
             JToken token = JToken.Load(reader);
-            if (token.Type == JTokenType.Object)
+            try
             {
-                var stoppedFloat = new StoppedFloat { Stops = new List<KeyValuePair<float, float>>() };
-
-                if (token.SelectToken("base") != null)
-                    stoppedFloat.Base = token.SelectToken("base").ToObject<float>();
-                else
-                    stoppedFloat.Base = 1f;
-
-                foreach (var stop in token.SelectToken("stops"))
+                switch (token.Type)
                 {
-                    var zoom = (float)stop.First.ToObject<float>();
-                    var value = stop.Last.ToObject<float>();
-                    stoppedFloat.Stops.Add(new KeyValuePair<float, float>(zoom, value));
+                    case JTokenType.Object:
+                        var stoppedFloat = new StoppedFloat { Stops = new List<KeyValuePair<float, float>>() };
+
+                        if (token.SelectToken("base") != null)
+                            stoppedFloat.Base = token.SelectToken("base").ToObject<float>();
+                        else
+                            stoppedFloat.Base = 1f;
+
+                        foreach (var stop in token.SelectToken("stops"))
+                        {
+                            var zoom = (float)stop.First.ToObject<float>();
+                            var value = stop.Last.ToObject<float>();
+                            stoppedFloat.Stops.Add(new KeyValuePair<float, float>(zoom, value));
+                        }
+
+                        return stoppedFloat;
+                    case JTokenType.Array:
+                        //Нужен обработчик вырожений, таких как match, case, step и т.п.
+                        return new StoppedFloat() { SingleVal = 2 };
+                    default:
+                        return new StoppedFloat() { SingleVal = token.Value<float>() };
                 }
-
-                return stoppedFloat;
             }
-
-            return new StoppedFloat() { SingleVal = token.Value<float>() };
+            catch (Exception ex)
+            {
+                Logger.Log(LogLevel.Error, $"Error convert {token} to StoppedFloat. Path {reader.Path}", ex);
+                throw;
+            }
         }
 
         public override bool CanWrite => false;

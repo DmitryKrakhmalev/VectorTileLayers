@@ -4,10 +4,12 @@ using System;
 using System.Collections.Generic;
 using Mapsui.VectorTileLayers.OpenMapTiles.Expressions;
 using Mapsui.VectorTileLayers.OpenMapTiles.Json;
+using Mapsui.Logging;
+using Mapsui.VectorTileLayers.Core.Interfaces;
 
 namespace Mapsui.VectorTileLayers.OpenMapTiles.Converter
 {
-    public class StoppedStringConverter : JsonConverter
+    public class StoppedStringConverter : ExpressionConverter
     {
         public override bool CanConvert(Type objectType)
         {
@@ -18,23 +20,51 @@ namespace Mapsui.VectorTileLayers.OpenMapTiles.Converter
             Type objectType, object existingValue, JsonSerializer serializer)
         {
             JToken token = JToken.Load(reader);
-            if (token.Type == JTokenType.Object)
+            try
             {
-                var stoppedString = new StoppedString { Stops = new List<KeyValuePair<float, string>>() };
-
-                stoppedString.Base = token.SelectToken("base").ToObject<float>();
-
-                foreach (var stop in token.SelectToken("stops"))
+                switch (token.Type)
                 {
-                    var zoom = (float)stop.First.ToObject<float>();
-                    var text = stop.Last.ToObject<string>();
-                    stoppedString.Stops.Add(new KeyValuePair<float, string>(zoom, text));
-                }
+                    case JTokenType.Object:
+                        var stoppedString = new StoppedString
+                        {
+                            Stops = new List<KeyValuePair<float, string>>(),
+                            Base = token.SelectToken("base").ToObject<float>()
+                        };
 
-                return stoppedString;
+                        foreach (var stop in token.SelectToken("stops"))
+                        {
+                            var zoom = (float)stop.First.ToObject<float>();
+                            var text = stop.Last.ToObject<string>();
+                            stoppedString.Stops.Add(new KeyValuePair<float, string>(zoom, text));
+                        }
+
+                        return stoppedString;
+                    case JTokenType.Array:
+                        //Пока заглушаю... не знаю как это обработать
+                        var exp = ExpressionParser.ParseExpression(token.ToString(), typeof(string));
+                        if (exp is StepExpression step)
+                        {
+                            var value = step.ObjectType switch
+                            {
+                                "string" => step.Value.ToString(),
+                                //Для дополнительной логики с разными типами
+                                _ => step.Value.ToString()
+                            };
+                            return new StoppedString() { SingleVal = value };
+                        }
+                        else
+                            return new StoppedString() { SingleVal = "TEST" };
+
+                    default:
+                        return new StoppedString() { SingleVal = token.Value<string>() };
+                }
+            }
+            catch (Exception ex)
+            {
+                Logger.Log(LogLevel.Error, $"Error convert {token} to StoppedString. Path {reader.Path}", ex);
+                throw;
             }
 
-            return new StoppedString() { SingleVal = token.Value<string>() };
         }
 
         public override bool CanWrite => false;

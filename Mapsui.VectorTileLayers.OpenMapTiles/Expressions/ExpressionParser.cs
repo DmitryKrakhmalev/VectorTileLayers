@@ -3,11 +3,12 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
+using System.Linq.Expressions;
 using System.Text;
 
 namespace Mapsui.VectorTileLayers.OpenMapTiles.Expressions
 {
-    public class ExpressionParser 
+    public class ExpressionParser
     {
         Dictionary<string, Func<JArray, ExpressionParser, IExpression>> expressionRegistry = new Dictionary<string, Func<JArray, ExpressionParser, IExpression>>
         {
@@ -36,13 +37,15 @@ namespace Mapsui.VectorTileLayers.OpenMapTiles.Expressions
             //new KeyValuePair<string, Func<string, Expression>>("number", Assertion::parse),
             //new KeyValuePair<string, Func<string, Expression>>("number-format", NumberFormat::parse),
             //new KeyValuePair<string, Func<string, Expression>>("object", Assertion::parse),
-            //new KeyValuePair<string, Func<string, Expression>>("step", Step::parse),
             //new KeyValuePair<string, Func<string, Expression>>("string", Assertion::parse),
             //new KeyValuePair<string, Func<string, Expression>>("to-boolean", Coercion::parse),
             //new KeyValuePair<string, Func<string, Expression>>("to-color", Coercion::parse),
             //new KeyValuePair<string, Func<string, Expression>>("to-number", Coercion::parse),
             //new KeyValuePair<string, Func<string, Expression>>("to-string", Coercion::parse),
             { "var", VarExpression.Parse },
+            { "step", StepExpression.Parse },
+            { "zoom", ZoomExpression.Parse },
+            { "get", GetExpression.Parse },
             //new KeyValuePair<string, Func<string, Expression>>("within", Within::parse),
         };
 
@@ -146,7 +149,7 @@ namespace Mapsui.VectorTileLayers.OpenMapTiles.Expressions
         /// <param name="expected">Expected type for this child</param>
         /// <param name="typeAnnotationOption">Type annotations</param>
         /// <returns>Expression for this child</returns>
-        internal IExpression Parse(JToken token, int index, Type expected = null, TypeAnnotationOption typeAnnotationOption = TypeAnnotationOption.None) 
+        internal IExpression Parse(JToken token, int index, Type expected = null, TypeAnnotationOption typeAnnotationOption = TypeAnnotationOption.None)
         {
             var parser = new ExpressionParser(Key + "[" + index.ToString() + "]", Errors, expected, Scope);
             return parser.Parse(token, expected);
@@ -154,7 +157,7 @@ namespace Mapsui.VectorTileLayers.OpenMapTiles.Expressions
 
         internal IExpression Parse(JToken token, int index, Type expected, Dictionary<string, IExpression> bindings)
         {
-            var parser = new ExpressionParser(Key +"[" + index.ToString() + "]", Errors, expected, new Scope(bindings, Scope));
+            var parser = new ExpressionParser(Key + "[" + index.ToString() + "]", Errors, expected, new Scope(bindings, Scope));
             return parser.Parse(token, expected);
         }
 
@@ -165,12 +168,12 @@ namespace Mapsui.VectorTileLayers.OpenMapTiles.Expressions
 
         public void Error(string message, long child)
         {
-            Errors.Add( message, Key + "[" + child.ToString() + "]");
+            Errors.Add(message, Key + "[" + child.ToString() + "]");
         }
 
         public void Error(string message, long child, long grandchild)
         {
-            Errors.Add( message, Key + "[" + child.ToString() + "][" + grandchild.ToString() + "]");
+            Errors.Add(message, Key + "[" + child.ToString() + "][" + grandchild.ToString() + "]");
         }
 
         public void AppendErrors(ExpressionParser parser)
@@ -189,7 +192,7 @@ namespace Mapsui.VectorTileLayers.OpenMapTiles.Expressions
         {
             StringBuilder combinedError = new StringBuilder();
 
-            foreach (var error in Errors) 
+            foreach (var error in Errors)
             {
                 combinedError.AppendLine((!string.IsNullOrEmpty(error.Value) ? error.Value + ": " : "") + error.Key);
             }

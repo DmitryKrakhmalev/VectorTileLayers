@@ -6,11 +6,11 @@
         xmlns:mapsuiwpf="clr-namespace:Mapsui.UI.Wpf;assembly=Mapsui.UI.Wpf"
         xmlns:local="clr-namespace:Sample.WPF"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="MainWindow" Height="640" Width="1024">
     <Grid>
         <mapsuiwpf:MapControl x:Name="mapControl" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" />
         <StackPanel Margin="10">
-            <ListView x:Name="listViewStyles" VerticalAlignment="Top" HorizontalAlignment="Right" Height="100" Width="200">
+            <ListView x:Name="listViewStyles" HorizontalAlignment="Right" Height="416" Width="240" d:ItemsSource="{d:SampleData ItemCount=5}" SelectionMode="Single">
                 <ListView.View>
                     <GridView>
                         <GridView.ColumnHeaderContainerStyle>
@@ -28,22 +28,22 @@
                         <GridViewColumn>
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
-                                    <TextBlock Margin="0" Text="{Binding Text}"></TextBlock>
+                                    <TextBlock Margin="0" Text="{Binding Text}" Width="220"></TextBlock>
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>
                     </GridView>
                 </ListView.View>
             </ListView>
-            <StackPanel Orientation="Horizontal" VerticalAlignment="Top" HorizontalAlignment="Right" Width="200">
-                <Button x:Name="btnAll" VerticalAlignment="Top" HorizontalAlignment="Right" Width="100" Height="32">All</Button>
-                <Button x:Name="btnNone" VerticalAlignment="Top" HorizontalAlignment="Right" Width="100" Height="32">None</Button>
+            <StackPanel Orientation="Horizontal" VerticalAlignment="Top" HorizontalAlignment="Right" Width="240">
+                <Button x:Name="btnAll" VerticalAlignment="Top" HorizontalAlignment="Right" Width="120" Height="32">All</Button>
+                <Button x:Name="btnNone" VerticalAlignment="Top" HorizontalAlignment="Right" Width="120" Height="32">None</Button>
             </StackPanel>
-            <StackPanel Orientation="Horizontal" VerticalAlignment="Top" HorizontalAlignment="Right" Width="200">
-                <Button x:Name="btnZoomIn" VerticalAlignment="Top" HorizontalAlignment="Right" Width="50" Height="32">+</Button>
-                <Button x:Name="btnZoomOut" VerticalAlignment="Top" HorizontalAlignment="Right" Width="50" Height="32">-</Button>
-                <Button x:Name="btnRotateCW" VerticalAlignment="Top" HorizontalAlignment="Right" Width="50" Height="32">R+</Button>
-                <Button x:Name="btnRotateCCW" VerticalAlignment="Top" HorizontalAlignment="Right" Width="50" Height="32">R-</Button>
+            <StackPanel Orientation="Horizontal" VerticalAlignment="Top" HorizontalAlignment="Right" Width="240">
+                <Button x:Name="btnZoomIn" VerticalAlignment="Top" HorizontalAlignment="Right" Width="60" Height="32">+</Button>
+                <Button x:Name="btnZoomOut" VerticalAlignment="Top" HorizontalAlignment="Right" Width="60" Height="32">-</Button>
+                <Button x:Name="btnRotateCW" VerticalAlignment="Top" HorizontalAlignment="Right" Width="60" Height="32">R+</Button>
+                <Button x:Name="btnRotateCCW" VerticalAlignment="Top" HorizontalAlignment="Right" Width="60" Height="32">R-</Button>
             </StackPanel>
         </StackPanel>
     </Grid>

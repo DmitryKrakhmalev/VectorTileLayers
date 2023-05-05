@@ -1,6 +1,7 @@
 ﻿using Mapsui.VectorTileLayers.Core.Interfaces;
 using Mapsui.VectorTileLayers.Core.Primitives;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Mapsui.VectorTileLayers.OpenMapTiles.Expressions
 {
@@ -68,5 +69,7 @@ namespace Mapsui.VectorTileLayers.OpenMapTiles.Expressions
         {
             throw new System.NotImplementedException();
         }
+
+        public override string ToString() => SingleVal ?? Stops?.FirstOrDefault().Value;
     }
 }

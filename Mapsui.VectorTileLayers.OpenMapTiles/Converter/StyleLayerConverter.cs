@@ -5,6 +5,7 @@ using Mapsui.VectorTileLayers.OpenMapTiles.Json;
 using SkiaSharp;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
+using NetTopologySuite.Algorithm;
 
 namespace Mapsui.VectorTileLayers.OpenMapTiles.Converter
 {
@@ -560,7 +561,7 @@ namespace Mapsui.VectorTileLayers.OpenMapTiles.Converter
             //   Optional boolean. Defaults to false. Requires icon-image. Requires icon-rotation-alignment = "map". Interval.
             //   Requires symbol-placement = "line" or "line-center".
             //   If true, the icon may be flipped to prevent it from being rendered upside-down.
-            if (layout?.IconImage != null && 
+            if (layout?.IconImage != null &&
                 layout?.IconRotationAlignment?.ToLower() == "map" &&
                 //(layout?.SymbolPlacement?.ToLower() == "line" || layout?.SymbolPlacement?.ToLower() == "line-center") &&
                 layout?.IconKeepUpright != null)
@@ -645,7 +646,7 @@ namespace Mapsui.VectorTileLayers.OpenMapTiles.Converter
             // icon-text-fit-padding
             //   Optional array of numbers. Units in pixels.Defaults to[0, 0, 0, 0]. Requires icon-image.
             //   Requires text - field.Requires icon-text-fit to be "both", or "width", or "height".
-            if (layout?.IconImage != null && 
+            if (layout?.IconImage != null &&
                 layout?.TextField != null &&
                 (layout?.IconTextFit?.ToLower() == "both" || layout?.IconTextFit?.ToLower() == "width" || layout?.IconTextFit?.ToLower() == "height") &&
                 layout?.IconTextFitPadding != null)
@@ -756,7 +757,8 @@ namespace Mapsui.VectorTileLayers.OpenMapTiles.Converter
             //   See https://docs.mapbox.com/mapbox-gl-js/style-spec/layers/#layout-symbol-text-field
             if (layout?.TextField != null)
             {
-                symbolStyler.TextField = layout.TextField;
+                //По хорошему нужен Evaluate от контекста, но не понятно как его получить
+                symbolStyler.TextField = layout.TextField.ToString();
             }
 
             // text-font
@@ -993,7 +995,7 @@ namespace Mapsui.VectorTileLayers.OpenMapTiles.Converter
                 //layout.SymbolPlacement.ToLower() == "point" &&
                 layout?.TextVariableAnchor != null)
             {
-                foreach(var alignment in layout?.TextVariableAnchor)
+                foreach (var alignment in layout?.TextVariableAnchor)
                     symbolStyler.TextVariableAnchor.Add(alignment.ToMapAlignment());
             }
 

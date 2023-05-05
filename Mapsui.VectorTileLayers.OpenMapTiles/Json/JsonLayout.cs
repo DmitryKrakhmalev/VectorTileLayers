@@ -30,8 +30,9 @@ namespace Mapsui.VectorTileLayers.OpenMapTiles.Json
         [JsonProperty("text-font")]
         public JArray TextFont { get; set; }
 
+        [JsonConverter(typeof(StoppedStringConverter))]
         [JsonProperty("text-field")]
-        public string TextField { get; set; }
+        public StoppedString TextField { get; set; }
 
         [JsonConverter(typeof(StoppedFloatConverter))]
         [JsonProperty("text-max-width")]

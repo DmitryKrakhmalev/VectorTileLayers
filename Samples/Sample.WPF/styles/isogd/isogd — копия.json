@@ -1,0 +1,1297 @@
+{
+	"version": 8,
+	"name": "ИСОГД",
+	"metadata": {
+		"mapbox:type": "default",
+		"mapbox:origin": "basic-v1",
+		"mapbox:sdk-support": {
+			"android": "9.3.0",
+			"ios": "5.10.0",
+			"js": "2.3.0"
+		},
+		"mapbox:autocomposite": true,
+		"mapbox:uiParadigm": "layers",
+		"mapbox:groups": {}
+	},
+	"center": [
+		50.889144448584719,
+		53.528190330033769
+	],
+	"zoom": 7.151160714521422,
+	"bearing": 0,
+	"pitch": 0,
+	"sources": {
+		"composite": {
+			"tiles": [],
+			"type": "vector"
+		},
+		"LandPlot": {
+			"type": "vector",
+			"url": "mbtiles://LandPlot.mbtiles"
+		},
+		"TerZone": {
+			"type": "vector",
+			"url": "mbtiles://terzone.mbtiles"
+		},
+		"SpecialZone": {
+			"type": "vector",
+			"url": "mbtiles://SpecialZone.mbtiles"
+		}
+	},
+	"sprite": "",
+	"glyphs": "mapbox://fonts/mapbox/{fontstack}/{range}.pbf",
+	"layers": [
+		{
+			"id": "DataSection1",
+			"type": "fill",
+			"source": "composite",
+			"source-layer": "DataSection1",
+			"paint": {
+				"fill-color": "hsla(217, 54%, 68%, 0.1)"
+			}
+		},
+		{
+			"id": "DataSection2",
+			"type": "fill",
+			"source": "composite",
+			"source-layer": "DataSection2",
+			"paint": {
+				"fill-color": "hsla(350, 49%, 50%, 0.1)"
+			}
+		},
+		{
+			"id": "DataSection3Stp",
+			"type": "fill",
+			"source": "composite",
+			"source-layer": "DataSection3Stp",
+			"paint": {
+				"fill-color": "hsla(248, 67%, 55%, 0.1)"
+			}
+		},
+		{
+			"id": "DataSection3Gp",
+			"type": "fill",
+			"source": "composite",
+			"source-layer": "DataSection3Gp",
+			"paint": {
+				"fill-color": "hsla(42, 47%, 70%, 0.1)",
+				"fill-outline-color": "hsl(42, 90%, 40%)"
+			}
+		},
+		{
+			"id": "DataSection4Settlement",
+			"type": "fill",
+			"source": "composite",
+			"source-layer": "DataSection4Settlement",
+			"paint": {
+				"fill-color": "hsla(31, 63%, 52%, 0.1)",
+				"fill-outline-color": "hsl(31, 63%, 52%)"
+			}
+		},
+		{
+			"id": "DataSection4District",
+			"type": "fill",
+			"source": "composite",
+			"source-layer": "DataSection4District",
+			"paint": {
+				"fill-color": "hsla(113, 64%, 33%, 0.1)",
+				"fill-outline-color": "hsl(113, 64%, 33%)"
+			}
+		},
+		{
+			"id": "DataSection4City",
+			"type": "fill",
+			"source": "composite",
+			"source-layer": "DataSection4City",
+			"paint": {
+				"fill-color": "hsla(327, 76%, 69%, 0.1)",
+				"fill-outline-color": "hsl(327, 76%, 69%)"
+			}
+		},
+		{
+			"id": "DataSection5",
+			"type": "fill",
+			"source": "composite",
+			"source-layer": "DataSection5",
+			"paint": {
+				"fill-color": "hsla(2, 57%, 77%, 0.1)",
+				"fill-outline-color": "hsl(309, 90%, 52%)"
+			}
+		},
+		{
+			"id": "DataSection6",
+			"type": "fill",
+			"source": "composite",
+			"source-layer": "DataSection6",
+			"paint": {
+				"fill-color": "hsla(22, 90%, 70%, 0.5)",
+				"fill-outline-color": "hsl(134, 62%, 40%)"
+			}
+		},
+		{
+			"id": "DataSection7Ppt",
+			"type": "fill",
+			"source": "composite",
+			"source-layer": "DataSection7Ppt",
+			"paint": {
+				"fill-color": "hsla(326, 80%, 70%, 0.5)",
+				"fill-outline-color": "hsl(326, 63%, 40%)"
+			}
+		},
+		{
+			"id": "DataSection7Pmt",
+			"type": "fill",
+			"source": "composite",
+			"source-layer": "DataSection7Pmt",
+			"paint": {
+				"fill-color": "hsla(146, 75%, 70%, 0.5)",
+				"fill-outline-color": "hsl(146, 75%, 40%)"
+			}
+		},
+		{
+			"id": "DataSection7Npa",
+			"type": "fill",
+			"source": "composite",
+			"source-layer": "DataSection7Npa",
+			"paint": {
+				"fill-color": "hsla(157, 60%, 70%, 0.5)",
+				"fill-outline-color": "hsl(157, 60%, 40%)"
+			}
+		},
+		{
+			"id": "DataSection7PptPmt",
+			"type": "fill",
+			"source": "composite",
+			"source-layer": "DataSection7PptPmt",
+			"paint": {
+				"fill-color": "hsla(200, 80%, 70%, 0.5)",
+				"fill-outline-color": "hsl(200, 80%, 40%)"
+			}
+		},
+		{
+			"id": "DataSection8",
+			"type": "fill",
+			"source": "composite",
+			"source-layer": "DataSection8",
+			"paint": {
+				"fill-color": "hsla(305, 25%, 70%, 0.5)",
+				"fill-outline-color": "hsl(305, 25%, 40%)"
+			}
+		},
+		{
+			"id": "DataSection9",
+			"type": "fill",
+			"source": "composite",
+			"source-layer": "DataSection9",
+			"paint": {
+				"fill-color": "hsla(55, 63%, 52%, 0.1)",
+				"fill-outline-color": "hsl(55, 63%, 52%)"
+			}
+		},
+		{
+			"id": "DataSection10",
+			"type": "fill",
+			"source": "composite",
+			"source-layer": "DataSection10",
+			"paint": {
+				"fill-color": [
+					"match",
+					[
+						"get",
+						"ClassId"
+					],
+					"10.01",
+					"hsla(13, 51%, 47%, 0.5)",
+					"10.02",
+					"hsla(188, 66%, 83%, 0.5)",
+					"hsla(13, 20%, 80%, 0.5)"
+				],
+				"fill-outline-color": "hsl(111, 80%, 30%)"
+			}
+		},
+		{
+			"id": "DataSection11",
+			"type": "fill",
+			"source": "composite",
+			"source-layer": "DataSection11",
+			"paint": {
+				"fill-color": "hsla(77, 63%, 52%, 0.1)",
+				"fill-outline-color": "hsl(77, 63%, 52%)"
+			}
+		},
+		{
+			"id": "DataSection12Reserve",
+			"type": "fill",
+			"source": "composite",
+			"source-layer": "DataSection12Reserve",
+			"paint": {
+				"fill-color": "hsla(95, 63%, 52%, 0.1)",
+				"fill-outline-color": "hsl(95, 63%, 52%)"
+			}
+		},
+		{
+			"id": "DataSection12Withdrawal",
+			"type": "fill",
+			"source": "composite",
+			"source-layer": "DataSection12Withdrawal",
+			"paint": {
+				"fill-color": "hsla(330, 63%, 52%, 0.1)",
+				"fill-outline-color": "hsl(330, 63%, 52%)"
+			}
+		},
+		{
+			"id": "DataSection13Gpzu",
+			"type": "fill",
+			"source": "composite",
+			"source-layer": "DataSection13Gpzu",
+			"layout": {},
+			"paint": {
+				"fill-color": [
+					"match",
+					[
+						"get",
+						"DocStatus"
+					],
+					[
+						"0C.1"
+					],
+					"hsla(0, 85%, 48%, 0.5)",
+					[
+						"0C.2"
+					],
+					"hsla(0, 75%, 30%, 0.2)",
+					"hsla(0, 65%, 80%, 0.5)"
+				]
+			},
+			"fill-outline-color": "hsl(255, 85%, 30%)"
+		},
+		{
+			"id": "DataSection13EngSur",
+			"type": "fill",
+			"source": "composite",
+			"source-layer": "DataSection13EngSur",
+			"layout": {},
+			"paint": {
+				"fill-color": [
+					"match",
+					[
+						"get",
+						"DocStatus"
+					],
+					[
+						"0C.1"
+					],
+					"hsla(210, 85%, 48%, 0.5)",
+					[
+						"0C.2"
+					],
+					"hsla(210, 75%, 30%, 0.2)",
+					"hsla(210, 65%, 80%, 0.5)"
+				]
+			},
+			"fill-outline-color": "hsl(255, 85%, 30%)"
+		},
+		{
+			"id": "DataSection13Conclusion",
+			"type": "fill",
+			"source": "composite",
+			"source-layer": "DataSection13Conclusion",
+			"layout": {},
+			"paint": {
+				"fill-color": [
+					"match",
+					[
+						"get",
+						"DocStatus"
+					],
+					[
+						"0C.1"
+					],
+					"hsla(265, 91%, 48%, 0.5)",
+					[
+						"0C.2"
+					],
+					"hsla(265, 70%, 30%, 0.2)",
+					"hsla(265, 60%, 80%, 0.5)"
+				]
+			},
+			"fill-outline-color": "hsl(255, 85%, 30%)"
+		},
+		{
+			"id": "DataSection13Rs",
+			"type": "fill",
+			"source": "composite",
+			"source-layer": "DataSection13Rs",
+			"layout": {},
+			"paint": {
+				"fill-color": [
+					"match",
+					[
+						"get",
+						"DocStatus"
+					],
+					[
+						"0C.1"
+					],
+					"hsla(60, 100%, 50%, 0.75)",
+					[
+						"0C.2"
+					],
+					"hsla(60, 75%, 30%, 0.2)",
+					"hsla(60, 65%, 80%, 0.5)"
+				],
+				"fill-outline-color": "hsl(0, 0%, 50%)"
+			}
+		},
+		{
+			"id": "DataSection13NotificationConstructionStart",
+			"type": "fill",
+			"source": "composite",
+			"source-layer": "DataSection13NotificationConstructionStart",
+			"layout": {},
+			"paint": {
+				"fill-color": [
+					"match",
+					[
+						"get",
+						"DocStatus"
+					],
+					[
+						"0C.1"
+					],
+					"hsla(60, 100%, 50%, 0.75)",
+					[
+						"0C.2"
+					],
+					"hsla(60, 75%, 30%, 0.2)",
+					"hsla(60, 65%, 80%, 0.5)"
+				],
+				"fill-outline-color": "hsl(0, 0%, 50%)"
+			}
+		},
+		{
+			"id": "DataSection13Rv",
+			"type": "fill",
+			"source": "composite",
+			"source-layer": "DataSection13Rv",
+			"layout": {},
+			"paint": {
+				"fill-color": [
+					"match",
+					[
+						"get",
+						"DocStatus"
+					],
+					[
+						"0C.1"
+					],
+					"hsla(140, 100%, 48%, 0.5)",
+					[
+						"0C.2"
+					],
+					"hsla(140, 75%, 30%, 0.2)",
+					"hsla(140, 65%, 80%, 0.5)"
+				]
+			},
+			"fill-outline-color": "hsl(255, 85%, 30%)"
+		},
+		{
+			"id": "DataSection13NotificationConstructionEnd",
+			"type": "fill",
+			"source": "composite",
+			"source-layer": "DataSection13NotificationConstructionEnd",
+			"layout": {},
+			"paint": {
+				"fill-color": [
+					"match",
+					[
+						"get",
+						"DocStatus"
+					],
+					[
+						"0C.1"
+					],
+					"hsla(140, 100%, 48%, 0.5)",
+					[
+						"0C.2"
+					],
+					"hsla(140, 75%, 30%, 0.2)",
+					"hsla(140, 65%, 80%, 0.5)"
+				]
+			},
+			"fill-outline-color": "hsl(255, 85%, 30%)"
+		},
+		{
+			"id": "DataSection13OKS",
+			"type": "fill",
+			"source": "composite",
+			"source-layer": "DataSection13OKS",
+			"layout": {},
+			"paint": {
+				"fill-color": [
+					"match",
+					[
+						"get",
+						"DocStatus"
+					],
+					[
+						"0C.1"
+					],
+					"hsla(30, 86%, 60%, 0.5)",
+					[
+						"0C.2"
+					],
+					"hsla(30, 50%, 30%, 0.2)",
+					"hsla(30, 60%, 80%, 0.5)"
+				]
+			},
+			"fill-outline-color": "hsl(255, 85%, 30%)"
+		},
+		{
+			"id": "DataSection13NotificationDestruction",
+			"type": "fill",
+			"source": "composite",
+			"source-layer": "DataSection13NotificationDestruction",
+			"layout": {},
+			"paint": {
+				"fill-color": [
+					"match",
+					[
+						"get",
+						"DocStatus"
+					],
+					[
+						"0C.1"
+					],
+					"hsla(0, 86%, 60%, 0.5)",
+					[
+						"0C.2"
+					],
+					"hsla(0, 50%, 30%, 0.2)",
+					"hsla(0, 60%, 80%, 0.5)"
+				]
+			},
+			"fill-outline-color": "hsl(255, 85%, 30%)"
+		},
+		{
+			"id": "DataSection13Other",
+			"type": "fill",
+			"source": "composite",
+			"source-layer": "DataSection13Other",
+			"layout": {},
+			"paint": {
+				"fill-color": [
+					"match",
+					[
+						"get",
+						"DocStatus"
+					],
+					[
+						"0C.1"
+					],
+					"hsla(182, 86%, 60%, 0.5)",
+					[
+						"0C.2"
+					],
+					"hsla(182, 50%, 30%, 0.2)",
+					"hsla(182, 60%, 80%, 0.5)"
+				]
+			},
+			"fill-outline-color": "hsl(255, 85%, 30%)"
+		},
+		{
+			"id": "DataSection14PKRCommunal",
+			"type": "fill",
+			"source": "composite",
+			"source-layer": "DataSection14PKRCommunal",
+			"paint": {
+				"fill-color": "hsla(90, 90%, 45%, 0.5)",
+				"fill-outline-color": "hsl(90, 90%, 45%)"
+			}
+		},
+		{
+			"id": "DataSection14PKRSocial",
+			"type": "fill",
+			"source": "composite",
+			"source-layer": "DataSection14PKRSocial",
+			"paint": {
+				"fill-color": "hsla(339, 80%, 45%, 0.5)",
+				"fill-outline-color": "hsl(339, 80%, 45%)"
+			}
+		},
+		{
+			"id": "DataSection14PKRTransport",
+			"type": "fill",
+			"source": "composite",
+			"source-layer": "DataSection14PKRTransport",
+			"paint": {
+				"fill-color": "hsla(32, 80%, 45%, 0.5)",
+				"fill-outline-color": "hsl(32, 80%, 45%)"
+			}
+		},
+		{
+			"id": "DataSection15",
+			"type": "fill",
+			"source": "composite",
+			"source-layer": "DataSection15",
+			"paint": {
+				"fill-color": "hsla(85, 90%, 45%, 0.5)",
+				"fill-outline-color": "hsl(85, 90%, 45%)"
+			}
+		},
+		{
+			"id": "DataSection16",
+			"type": "fill",
+			"source": "composite",
+			"source-layer": "DataSection16",
+			"paint": {
+				"fill-color": "hsla(120, 90%, 45%, 0.5)",
+				"fill-outline-color": "hsl(120, 90%, 45%)"
+			}
+		},
+		{
+			"id": "historyBorder",
+			"type": "fill",
+			"source": "composite",
+			"source-layer": "historyBorder",
+			"paint": {
+				"fill-color": "hsla(235, 54%, 30%, 0.5)",
+				"fill-outline-color": "hsl(235, 54%, 30%)"
+			}
+		},
+		{
+			"id": "SpecialZone",
+			"type": "fill",
+			"source": "SpecialZone",
+			"source-layer": "SpecialZone",
+			"paint": {
+				"fill-color": [
+					"match",
+					[
+						"get",
+						"ClassId"
+					],
+					"10A.1",
+					"hsla(232, 64%, 50%, 0.5)",
+					"10A.2",
+					"hsla(118, 76%, 39%, 0.5)",
+					"10A.3",
+					"hsla(258, 84%, 60%, 0.5)",
+					"10A.4",
+					"hsla(251, 91%, 77%, 0.5)",
+					"10A.5",
+					"hsla(39, 95%, 43%, 0.5)",
+					"10A.6",
+					"hsla(132, 90%, 28%, 0.5)",
+					"10A.7",
+					"hsla(86, 35%, 36%, 0.5)",
+					"10A.8",
+					"hsla(65, 99%, 72%, 0.5)",
+					"10A.9",
+					"hsla(125, 66%, 73%, 0.5)",
+					"10A.10",
+					"hsla(164, 24%, 47%, 0.5)",
+					"10A.11",
+					"hsla(145, 82%, 46%, 0.5)",
+					"10A.12",
+					"hsla(301, 65%, 50%, 0.5)",
+					"10A.13",
+					"hsla(179, 92%, 34%, 0.5)",
+					"10A.14",
+					"hsla(355, 44%, 49%, 0.5)",
+					"10A.15",
+					"hsla(72, 34%, 53%, 0.5)",
+					"10A.16",
+					"hsla(218, 64%, 38%, 0.5)",
+					"10A.17",
+					"hsla(201, 76%, 81%, 0.5)",
+					"10A.18",
+					"hsla(160, 45%, 51%, 0.5)",
+					"10A.19",
+					"hsla(156, 85%, 63%, 0.5)",
+					"10A.20",
+					"hsla(301, 98%, 38%, 0.5)",
+					"10A.21",
+					"hsla(289, 97%, 54%, 0.5)",
+					"10A.22",
+					"hsla(299, 41%, 56%, 0.5)",
+					"10A.23",
+					"hsla(331, 89%, 64%, 0.5)",
+					"10A.24",
+					"hsla(114, 88%, 30%, 0.5)",
+					"10A.25",
+					"hsla(103, 47%, 27%, 0.5)",
+					"10A.26",
+					"hsla(96, 89%, 46%, 0.5)",
+					"10A.27",
+					"hsla(341, 95%, 74%, 0.5)",
+					"10A.28",
+					"hsla(196, 21%, 78%, 0.5)",
+					"10A.29",
+					"hsla(233, 96%, 46%, 0.5)",
+					"10A.30",
+					"hsla(216, 69%, 37%, 0.5)",
+					"hsla(250, 20%, 80%, 0.5)"
+				],
+				"fill-outline-color": "hsl(111, 80%, 30%)"
+			}
+		},
+		{
+			"id": "LandPlot-Fill",
+			"type": "fill",
+			"metadata": {
+				"mapbox:group": "e7a0fafed33b5ae07d082784ca5eef2e"
+			},
+			"source": "LandPlot",
+			"source-layer": "LandPlot",
+			"paint": {
+				"fill-color": [
+					"match",
+					[
+						"get",
+						"Status"
+					],
+					[
+						"13D.1"
+					],
+					"hsla(9, 100%, 50%, 0.3)",
+					[
+						"13D.2"
+					],
+					"hsla(9, 100%, 50%, 0)",
+					"hsla(0, 0%, 39%, 0.3)"
+				],
+				"fill-outline-color": "hsla(0, 0%, 0%, 0)"
+			}
+		},
+		{
+			"id": "LandPlot-Boundary-NonArchive",
+			"type": "line",
+			"metadata": {
+				"mapbox:group": "e7a0fafed33b5ae07d082784ca5eef2e"
+			},
+			"source": "LandPlot",
+			"source-layer": "LandPlot",
+			"filter": [
+				"match",
+				[
+					"get",
+					"Status"
+				],
+				[
+					"13D.2"
+				],
+				false,
+				true
+			],
+			"paint": {
+				"line-color": "hsl(0, 100%, 50%)",
+				"line-width": [
+					"case",
+					[
+						"==",
+						[
+							"get",
+							"IsGeometryOfficial"
+						],
+						true
+					],
+					2,
+					[
+						"==",
+						[
+							"get",
+							"IsGeometryOfficial"
+						],
+						false
+					],
+					1,
+					1
+				]
+			}
+		},
+		{
+			"id": "LandPlot-Boundary-Archive",
+			"type": "line",
+			"metadata": {
+				"mapbox:group": "e7a0fafed33b5ae07d082784ca5eef2e"
+			},
+			"source": "LandPlot",
+			"source-layer": "LandPlot",
+			"filter": [
+				"match",
+				[
+					"get",
+					"Status"
+				],
+				[
+					"13D.2"
+				],
+				true,
+				false
+			],
+			"paint": {
+				"line-dasharray": [
+					5,
+					5
+				],
+				"line-color": "hsl(0, 100%, 50%)"
+			}
+		},
+		{
+			"id": "LandPlot-Label",
+			"type": "symbol",
+			"source": "LandPlot",
+			"source-layer": "LandPlot",
+			"layout": {
+				"text-field": [
+					"step",
+					[
+						"zoom"
+					],
+					"",
+					12,
+					[
+						"get",
+						"CadastralNum"
+					],
+					22,
+					[
+						"get",
+						"CadastralNum"
+					]
+				],
+				"text-justify": "auto",
+				"text-max-width": 14,
+				"text-line-height": 1.1,
+				"text-size": 11
+			},
+			"paint": {
+				"text-color": "hsl(0, 80%, 9%)"
+			}
+		},
+		{
+			"id": "LandPlotLandCategory",
+			"type": "fill",
+			"metadata": {
+				"mapbox:group": "e7a0fafed33b5ae07d082784ca5eef2e"
+			},
+			"source": "LandPlot",
+			"source-layer": "LandPlot",
+			"paint": {
+				"fill-color": [
+					"match",
+					[
+						"get",
+						"LandCategory"
+					],
+					"003001000000",
+					"hsla(78, 97%, 88%, 1)",
+					"003002000000",
+					"hsla(44, 62%, 53%, 1)",
+					"003003000000",
+					"hsla(40, 64%, 25%, 1)",
+					"003004000000",
+					"hsla(93, 56%, 28%, 1)",
+					"003005000000",
+					"hsla(95, 96%, 65%, 1)",
+					"003006000000",
+					"hsla(238, 88%, 69%, 1)",
+					"003007000000",
+					"hsla(31, 50%, 43%, 1)",
+					"hsla(0, 0%, 70%, 1)"
+				],
+				"fill-outline-color": "hsl(0, 100%, 50%)"
+			}
+		},
+		{
+			"id": "Oks",
+			"type": "fill",
+			"source": "composite",
+			"source-layer": "Oks",
+			"paint": {
+				"fill-color": [
+					"match",
+					[
+						"get",
+						"Status"
+					],
+					"13D.1",
+					"hsla(35, 100%, 50%, 0.3)",
+					"13D.2",
+					"hsla(35, 100%, 50%, 0.0)",
+					"13D.3",
+					"hsla(35, 50%, 30%, 0.3)",
+					"hsla(35, 50%, 30%, 0.3)"
+				],
+				"fill-outline-color": [
+					"match",
+					[
+						"get",
+						"Status"
+					],
+					"13D.1",
+					"hsl(35, 100%, 50%)",
+					"13D.2",
+					"hsl(35, 30%, 50%)",
+					"13D.3",
+					"hsl(35, 50%, 30%)",
+					"hsl(35, 50%, 30%)"
+				]
+			}
+		},
+		{
+			"id": "OksType",
+			"type": "fill",			
+			"source": "composite",
+			"source-layer": "Oks",
+			"paint": {
+				"fill-color": [
+					"match",
+					[
+						"get",
+						"ObjectType"
+					],
+					"Многоквартирные дома",
+					"hsla(170, 44%, 69%, 1)",
+					"Дома малоэтажной жилой застройки",
+					"hsla(60, 100%, 85%, 1)",
+					"Объекты, предназначенные для хранения транспорта",
+					"hsla(248, 30%, 79%, 1)",
+					"Объекты коммерческого назначения",
+					"hsla(6, 95%, 72%, 1)",					
+					"Объекты временного проживания",
+					"hsla(205, 49%, 67%, 1)",
+					"Административные и бытовые объекты",					
+					"hsla(32, 98%, 69%, 1)",
+					"Объекты производственного назначения",
+					"hsla(82, 64%, 64%, 1)",
+					"Объекты общественного назначения",
+					"hsla(329, 89%, 90%, 1)",
+					"Прочие объекты",
+					"hsla(0, 0%, 85%, 1)",					
+					"Сооружения",
+					"hsla(299, 32%, 62%, 1)",
+					"hsla(329, 89%, 90%, 1)"
+				],
+				"fill-outline-color": "hsl(0, 100%, 50%)"
+			}
+		},
+		{
+			"id": "Easement",
+			"type": "fill",
+			"source": "composite",
+			"source-layer": "Easement",
+			"paint": {
+				"fill-color": [
+					"match",
+					[
+						"get",
+						"Status"
+					],
+					"13B.1",
+					"hsla(311, 100%, 50%, 0.0)",
+					"13B.2",
+					"hsla(311, 100%, 50%, 0.3)",
+					"13B.3",
+					"hsla(311, 50%, 30%, 0.3)",
+					"hsla(311, 50%, 30%, 0.3)"
+				],
+				"fill-outline-color": [
+					"match",
+					[
+						"get",
+						"Status"
+					],
+					"13B.1",
+					"hsl(311, 30%, 50%)",
+					"13B.2",
+					"hsl(311, 100%, 50%)",
+					"13B.3",
+					"hsl(311, 50%, 30%)",
+					"hsl(311, 50%, 30%)"
+				]
+			}
+		},
+		{
+			"id": "terzone",
+			"type": "fill",
+			"source": "TerZone",
+			"source-layer": "terzone",
+			"paint": {
+				"fill-color": [
+					"match",
+					[
+						"get",
+						"TerZoneType"
+					],
+					"Зона сельскохозяйственного использования",
+					"hsla(60, 100%, 80%, 0.5)",
+					"Зона размещения военных объектов",
+					"hsla(180, 100%, 50%, 0.5)",
+					"Жилая зона",
+					"hsla(9, 90%, 69%, 0.5)",
+					"Производственная зона, зона инженерной и транспортной инфраструктур",
+					"hsla(256, 25%, 53%, 0.5)",
+					"Общественно-деловая зона",
+					"hsla(270, 100%, 45%, 0.5)",
+					"Зона рекреационного назначения",
+					"hsla(150, 100%, 50%, 0.5)",
+					"Зона специального назначения",
+					"hsla(231, 43%, 50%, 0.5)",
+					"Зона особо охраняемых территорий",
+					"hsla(300, 100%, 44%, 0.5)",
+					"Иная зона",
+					"hsla(0, 0%, 44%, 0.5)",
+					"hsla(0, 0%, 80%, 0.5)"
+				],
+				"fill-outline-color": "#0C0"
+			}
+		},
+		{
+			"id": "protectednaturalareas",
+			"type": "fill",
+			"source": "composite",
+			"source-layer": "protectednaturalareas",
+			"paint": {
+				"fill-color": "hsla(249, 75%, 50%, 0.5)",
+				"fill-outline-color": "hsl(249, 75%, 50%)"
+			}
+		},
+		{
+			"id": "Forestry",
+			"type": "fill",
+			"source": "composite",
+			"source-layer": "Forestry",
+			"paint": {
+				"fill-color": "hsla(100, 53%, 33%, 0.5)",
+				"fill-outline-color": "hsl(100, 53%, 33%)"
+			}
+		},
+		{
+			"id": "ForestDistrict",
+			"type": "fill",
+			"source": "composite",
+			"source-layer": "ForestDistrict",
+			"paint": {
+				"fill-color": "hsla(155, 29%, 38%, 0.5)",
+				"fill-outline-color": "hsl(155, 29%, 38%)"
+			}
+		},
+		{
+			"id": "ArchiveDataGpzu",
+			"type": "fill",
+			"source": "composite",
+			"source-layer": "ArchiveData",
+			"filter": [
+				"match",
+				[
+					"get",
+					"doc_class"
+				],
+				[
+					"13.01 Градостроительный план земельного участка"
+				],
+				true,
+				false
+			],
+			"layout": {},
+			"paint": {
+				"fill-color": "hsla(0, 85%, 48%, 0.5)"
+			}
+		},
+		{
+			"id": "ArchiveDataRs",
+			"type": "fill",
+			"source": "composite",
+			"source-layer": "ArchiveData",
+			"filter": [
+				"match",
+				[
+					"get",
+					"doc_class"
+				],
+				[
+					"13.04 Разрешение на строительство"
+				],
+				true,
+				false
+			],
+			"layout": {},
+			"paint": {
+				"fill-color": "hsla(60, 100%, 50%, 0.5)",
+				"fill-outline-color": "hsl(0, 0%, 50%)"
+			}
+		},
+		{
+			"id": "ArchiveDataRv",
+			"type": "fill",
+			"source": "composite",
+			"source-layer": "ArchiveData",
+			"filter": [
+				"match",
+				[
+					"get",
+					"doc_class"
+				],
+				[
+					"13.18 Разрешение на ввод объекта в эксплуатацию"
+				],
+				true,
+				false
+			],
+			"layout": {},
+			"paint": {
+				"fill-color": "hsla(140, 100%, 48%, 0.5)"
+			}
+		},
+		{
+			"id": "ArchiveDataConstructionStart",
+			"type": "fill",
+			"source": "composite",
+			"source-layer": "ArchiveData",
+			"filter": [
+				"match",
+				[
+					"get",
+					"doc_class"
+				],
+				[
+					"13.20 Уведомление о планируемом строительстве или реконструкции объекта индивидуального жилищного строительства или садового дома"
+				],
+				true,
+				false
+			],
+			"layout": {},
+			"paint": {
+				"fill-color": "hsla(60, 100%, 50%, 0.5)"
+			}
+		},
+		{
+			"id": "ArchiveDataConstructionEnd",
+			"type": "fill",
+			"source": "composite",
+			"source-layer": "ArchiveData",
+			"filter": [
+				"match",
+				[
+					"get",
+					"doc_class"
+				],
+				[
+					"13.28 Уведомление о соответствии построенных или реконструированных объекта индивидуального жилищного строительства или садового дома"
+				],
+				true,
+				false
+			],
+			"layout": {},
+			"paint": {
+				"fill-color": "hsla(140, 100%, 48%, 0.5)"
+			}
+		},
+		{
+			"id": "ZoneIntersection",
+			"type": "fill",
+			"source": "composite",
+			"source-layer": "ZoneIntersection",
+			"paint": {
+				"fill-color": "hsla(163, 52%, 67%, 0.5)",
+				"fill-outline-color": "#7fd7be"
+			}
+		},
+		{
+			"id": "AreaLimits",
+			"type": "fill",
+			"source": "composite",
+			"source-layer": "AreaLimits",
+			"paint": {
+				"fill-color": "hsla(243, 96%, 73%, 0.5)",
+				"fill-outline-color": "#7f78fc"
+			}
+		},
+		{
+			"id": "BuildingInBuffer",
+			"type": "fill",
+			"source": "composite",
+			"source-layer": "BuildingsInBuffer",
+			"paint": {
+				"fill-color": "hsla(327, 100%, 67%, 0.5)",
+				"fill-outline-color": "#ffcce8"
+			}
+		},
+		{
+			"id": "WrongPermittedUseType",
+			"type": "fill",
+			"source": "composite",
+			"source-layer": "WrongPermittedUseType",
+			"paint": {
+				"fill-color": "hsla(180, 99%, 72%, 0.5)",
+				"fill-outline-color": "#72fefe"
+			}
+		},
+		{
+			"id": "DevelopmentPercent",
+			"type": "fill",
+			"source": "composite",
+			"source-layer": "DevelopmentPercent",
+			"paint": {
+				"fill-color": "hsla(0, 93%, 78%, 0.5)",
+				"fill-outline-color": "#fb9393"
+			}
+		},
+		{
+			"id": "LandPlotBuffers",
+			"type": "line",
+			"source": "composite",
+			"source-layer": "LandPlotBuffers",
+			"paint": {
+				"line-dasharray": [
+					2,
+					2
+				],
+				"line-color": "hsl(0, 100%, 67%)"
+			}
+		},
+		{
+			"id": "ArchiveTerZone",
+			"type": "fill",
+			"source": "composite",
+			"source-layer": "ArchiveTerZone",
+			"paint": {
+				"fill-color": [
+					"match",
+					[
+						"get",
+						"terzonetype"
+					],
+					"Зона сельскохозяйственного использования",
+					"hsla(60, 100%, 80%, 0.5)",
+					"Зона размещения военных объектов",
+					"hsla(180, 100%, 50%, 0.5)",
+					"Жилая зона",
+					"hsla(9, 90%, 69%, 0.5)",
+					"Производственная зона, зона инженерной и транспортной инфраструктур",
+					"hsla(256, 25%, 53%, 0.5)",
+					"Общественно-деловая зона",
+					"hsla(270, 100%, 45%, 0.5)",
+					"Зона рекреационного назначения",
+					"hsla(150, 100%, 50%, 0.5)",
+					"Зона специального назначения",
+					"hsla(231, 43%, 50%, 0.5)",
+					"Зона особо охраняемых территорий",
+					"hsla(300, 100%, 44%, 0.5)",
+					"Иная зона",
+					"hsla(0, 0%, 44%, 0.5)",
+					"hsla(0, 0%, 80%, 0.5)"
+				],
+				"fill-outline-color": "#0C0"
+			}
+		},
+		{
+			"id": "EmergencyHousing",
+			"type": "fill",
+			"source": "composite",
+			"source-layer": "EmergencyHousing",
+			"paint": {
+				"fill-color": "hsla(11, 80%, 33%, 0.6)",
+				"fill-outline-color": "hsl(11, 80%, 33%)"
+			}
+		},
+		{
+			"id": "InvestArea",
+			"type": "fill",
+			"source": "composite",
+			"source-layer": "InvestArea",
+			"paint": {
+				"fill-color": "hsla(210, 100%, 50%, 0.3)",
+				"fill-outline-color": "hsl(210, 100%, 50%)"
+			}
+		},
+		{
+			"id": "DataSection13RvExtra",
+			"type": "fill",
+			"source": "composite",
+			"source-layer": "DataSection13Rv",
+			"layout": {},
+			"paint": {
+				"fill-color": "hsla(60, 100%, 50%, 0.75)",
+				"fill-outline-color": "hsl(0, 0%, 50%)"
+			}
+		},
+		{
+			"id": "DataSection3GpActual",
+			"type": "fill",
+			"source": "composite",
+			"source-layer": "DataSection3Gp",
+			"filter": [
+				"match",
+				[
+					"get",
+					"DocStatus"
+				],
+				[
+					"0C.1"
+				],
+				true,
+				false
+			],
+			"paint": {
+				"fill-color": [
+					"case",
+					[
+						"==",
+						[
+							"get",
+							"HasVectorModel"
+						],
+						true
+					],
+					"hsla(120, 100%, 50%, 0.5)",
+					"hsla(0, 100%, 50%, 0.5)"
+				],
+				"fill-outline-color": "hsl(0, 0%, 50%)"
+			}
+		},
+		{
+			"id": "DataSection5Actual",
+			"type": "fill",
+			"source": "composite",
+			"source-layer": "DataSection5",
+			"filter": [
+				"match",
+				[
+					"get",
+					"DocStatus"
+				],
+				[
+					"0C.1"
+				],
+				true,
+				false
+			],
+			"paint": {
+				"fill-color": [
+					"case",
+					[
+						"==",
+						[
+							"get",
+							"HasVectorModel"
+						],
+						true
+					],
+					"hsla(120, 100%, 50%, 0.5)",
+					"hsla(0, 100%, 50%, 0.5)"
+				],
+				"fill-outline-color": "hsl(0, 0%, 50%)"
+			}
+		}
+	],
+	"created": "2021-09-21T11:23:01.094Z",
+	"modified": "2021-09-21T11:41:50.050Z",
+	"id": "ckttznp750to717okyeu9fr6d",
+	"owner": "apopov",
+	"visibility": "private",
+	"protected": false,
+	"draft": false
+}
