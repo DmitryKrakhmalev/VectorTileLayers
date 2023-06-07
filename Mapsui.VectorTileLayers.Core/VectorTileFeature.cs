@@ -8,6 +8,7 @@ using Mapsui.VectorTileLayers.Core.Primitives;
 using Mapsui.VectorTileLayers.Core.Styles;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Mapsui.VectorTileLayers.Core
 {
@@ -42,9 +43,9 @@ namespace Mapsui.VectorTileLayers.Core
 
         public MRect Extent { get; }
 
-        public ICollection<IStyle> Styles => null;
+        public ICollection<IStyle> Styles { get; private set; }
 
-        public IEnumerable<string> Fields => null;
+        public IEnumerable<string> Fields { get; private set; }
 
         public IDictionary<IStyle, object> RenderedGeometry => new Dictionary<IStyle, object>();
 
@@ -65,6 +66,8 @@ namespace Mapsui.VectorTileLayers.Core
         public void Process(VectorElement element)
         {
             element.Scale(_scale);
+            Fields = element.Tags.KeyValues.Select(x => x.Key);
+            Styles = new List<IStyle>();
 
             // Now process this element and check, for which style layers it is ok
             foreach (var styleLayer in _styleLayers)
@@ -81,6 +84,7 @@ namespace Mapsui.VectorTileLayers.Core
                 if (!styleLayer.Filter.Evaluate(element))
                     continue;
 
+                Styles.Add(styleLayer);
                 // Check for different types
                 switch (styleLayer.Type)
                 {

@@ -45,6 +45,11 @@
                 <Button x:Name="btnRotateCW" VerticalAlignment="Top" HorizontalAlignment="Right" Width="60" Height="32">R+</Button>
                 <Button x:Name="btnRotateCCW" VerticalAlignment="Top" HorizontalAlignment="Right" Width="60" Height="32">R-</Button>
             </StackPanel>
+            <StackPanel Orientation="Horizontal" VerticalAlignment="Top" HorizontalAlignment="Right" Width="240">
+                <Button x:Name="btnSaveSnapshot" VerticalAlignment="Top" HorizontalAlignment="Right" Width="80" Height="32">Save snapshot</Button>
+                <Button x:Name="btnCustomSave" VerticalAlignment="Top" HorizontalAlignment="Right" Width="80" Height="32">Custom save</Button>
+                <Button x:Name="btnCustomSave2" VerticalAlignment="Top" HorizontalAlignment="Right" Width="80" Height="32">Save tile</Button>
+            </StackPanel>
         </StackPanel>
     </Grid>
 </Window>

@@ -1,4 +1,5 @@
-﻿using Mapsui;
+﻿using BruTile;
+using Mapsui;
 using Mapsui.Extensions;
 using Mapsui.Logging;
 using Mapsui.Rendering.Skia.SkiaWidgets;
@@ -12,6 +13,7 @@ using Mapsui.VectorTileLayers.OpenMapTiles;
 using Mapsui.Widgets.PerformanceWidget;
 using Mapsui.Widgets.ScaleBar;
 using SkiaSharp;
+using System;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.IO;
@@ -37,7 +39,7 @@ namespace Sample.WPF
 
             //Подгружаем источники из MapBox стиля
             LoadMapboxGL("styles/isogd/isogd.json");
-            LoadMapboxGL("styles/isogd/gp.json");
+            //LoadMapboxGL("styles/isogd/gp.json");
 
             //Заполнить список задействованными стилями
             PrepareListView();
@@ -55,6 +57,9 @@ namespace Sample.WPF
             listViewStyles.ItemsSource = items;
             btnAll.Click += BtnAll_Click;
             btnNone.Click += BtnNone_Click;
+            btnSaveSnapshot.Click += BtnSaveSnapshot_Click;
+            btnCustomSave.Click += BtnCustomSave_Click;
+            btnCustomSave2.Click += BtnCustomSave2_Click;
             // Add handler for zoom buttons
             btnZoomIn.Click += BtnZoomIn_Click;
             btnZoomOut.Click += BtnZoomOut_Click;
@@ -156,6 +161,50 @@ namespace Sample.WPF
             {
                 ((CheckBoxListViewItem)item).IsChecked = false;
             }
+        }
+        private void BtnSaveSnapshot_Click(object sender, RoutedEventArgs e)
+        {
+            using var file = File.Create(Path.Combine(Environment.CurrentDirectory, "cache", "snapshot.png"));
+            file.Write(mapControl.GetSnapshot());
+        }
+        private void BtnCustomSave_Click(object sender, RoutedEventArgs e)
+        {
+            var viewport = new Viewport()
+            {
+                CenterX = 5589347.7922078343,
+                CenterY = 7029295.9187208461,
+                Height = 1024,
+                Width = 1980,
+                Resolution = ZoomExtensions.ToResolution(9),
+                Rotation = 0
+            };
+            //Нужно как то обновить данные по интересующей территории
+            mapControl.Map.RefreshData(new Mapsui.Layers.FetchInfo(viewport.Extent, viewport.Resolution));
+            mapControl.RefreshGraphics();
+            mapControl.ForceUpdate();
+            var layers = mapControl.Map.Layers.FindLayer("SpecialZone").ToArray();
+
+            using var stream = mapControl.Renderer.RenderToBitmapStream(viewport, layers);
+            if (stream != null)
+            {
+                stream.Seek(0, SeekOrigin.Begin);
+                var outDirectory = Path.Combine(Environment.CurrentDirectory, "cache");
+                if (!Directory.Exists(outDirectory))
+                    Directory.CreateDirectory(outDirectory);
+                using var file = File.Create(Path.Combine(outDirectory, "SpecialZone.png"));
+                stream.CopyTo(file);
+            }
+        }
+        private void BtnCustomSave2_Click(object sender, RoutedEventArgs e)
+        {
+            //Еще одна попытка
+            var layers = mapControl.Map.Layers.FindLayer("SpecialZone").ToArray();
+            var vectorLayer = layers[0] as OMTVectorTileLayer;
+            var tileIndex = new TileIndex(1309, 1384, 11);
+            var filePath = Path.Combine(Environment.CurrentDirectory, "cache", $"{vectorLayer.Name}_{tileIndex.Col}_{tileIndex.Row}_{tileIndex.Level}.png");
+            var tileInfo = new TileInfo() { Index = tileIndex};
+            vectorLayer.SaveTileImage(tileInfo, filePath);
+
         }
 
         private void Item_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)

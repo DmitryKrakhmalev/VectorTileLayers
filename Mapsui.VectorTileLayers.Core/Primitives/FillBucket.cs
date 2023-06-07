@@ -15,6 +15,7 @@ namespace Mapsui.VectorTileLayers.Core.Primitives
 
         public List<SKPath> Paths { get; }
         public SKPath Path { get; }
+        public TagsCollection Tags { get; private set; }
 
         public void AddElement(VectorElement element)
         {
@@ -26,6 +27,7 @@ namespace Mapsui.VectorTileLayers.Core.Primitives
                     Paths.Add(path);
                     Path.AddPath(path);
                 }
+                Tags = new TagsCollection(element.Tags.KeyValues);
             }
         }
 

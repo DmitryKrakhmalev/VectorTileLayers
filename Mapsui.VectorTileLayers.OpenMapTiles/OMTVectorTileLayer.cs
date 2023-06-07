@@ -3,6 +3,7 @@ using BruTile.Predefined;
 using Mapsui.Fetcher;
 using Mapsui.Layers;
 using Mapsui.Logging;
+using Mapsui.Styles;
 using Mapsui.Tiling.Extensions;
 using Mapsui.Tiling.Fetcher;
 using Mapsui.Tiling.Rendering;
@@ -10,10 +11,12 @@ using Mapsui.VectorTileLayers.Core;
 using Mapsui.VectorTileLayers.Core.Extensions;
 using Mapsui.VectorTileLayers.Core.Interfaces;
 using Mapsui.VectorTileLayers.Core.Primitives;
+using Mapsui.VectorTileLayers.Core.Renderer;
 using Mapsui.VectorTileLayers.Core.Styles;
 using Mapsui.VectorTileLayers.Core.Utilities;
 using Mapsui.VectorTileLayers.OpenMapTiles.Parser;
 using RBush;
+using SkiaSharp;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -70,16 +73,16 @@ namespace Mapsui.VectorTileLayers.OpenMapTiles
             // We have our only cache for ready processed vector tiles
             MemoryCache = new BruTile.Cache.MemoryCache<IFeature>(minTiles, maxTiles);
 
-            Style = new Styles.StyleCollection {
+            Style = new StyleCollection {
                 new VectorTileStyle(0, 24, vectorStyles),
                 //new SymbolTileStyle(0, 24, vectorStyles)
             };
-                        
+            
             Attribution.Text = _tileSource.Attribution?.Text;
             Attribution.Url = _tileSource.Attribution?.Url;
             
             dataFetchStrategy ??= new DataFetchStrategy(3);
-            _renderFetchStrategy = new Tiling.Rendering.RenderFetchStrategy();
+            _renderFetchStrategy = new RenderFetchStrategy();
             _minExtraTiles = minExtraTiles;
             _maxExtraTiles = maxExtraTiles;
             _tileFetchDispatcher = new TileFetchDispatcher(MemoryCache, _tileSource.Schema, fetchTileAsFeature ?? FetchTileAsVectorTile, dataFetchStrategy);
@@ -311,14 +314,14 @@ namespace Mapsui.VectorTileLayers.OpenMapTiles
                 return (null, Overzoom.None);
 
 #if DEBUG
-            Logger.Log(Logging.LogLevel.Information, $"Before GetTile from source at {DateTime.Now.Ticks}: {tileInfo.Index.Col}/{tileInfo.Index.Row}/{tileInfo.Index.Level}");
+            Logger.Log(LogLevel.Information, $"Before GetTile from source at {DateTime.Now.Ticks}: {tileInfo.Index.Col}/{tileInfo.Index.Row}/{tileInfo.Index.Level}");
 #endif
 
             // Get byte data for this tile
             var tileData = _tileSource.GetTileAsync(tileInfo).Result;
 
 #if DEBUG
-            Logger.Log(Logging.LogLevel.Information, $"After GetTile from source at {DateTime.Now.Ticks}: {tileInfo.Index.Col}/{tileInfo.Index.Row}/{tileInfo.Index.Level}");
+            Logger.Log(LogLevel.Information, $"After GetTile from source at {DateTime.Now.Ticks}: {tileInfo.Index.Col}/{tileInfo.Index.Row}/{tileInfo.Index.Level}");
 #endif
 
             if (tileData != null)
@@ -429,6 +432,46 @@ namespace Mapsui.VectorTileLayers.OpenMapTiles
                 return true;
 
             return false;
+        }
+
+        /// <summary>
+        /// Get tile bitmap by tile index
+        /// </summary>
+        /// <param name="tileInfo">tile info</param>
+        /// <param name="quality">quality</param>
+        /// <returns></returns>
+        public byte[] GetTileImage(TileInfo tileInfo, int quality = 90)
+        {
+            if (tileInfo.Extent == null || tileInfo.Extent == new BruTile.Extent(0,0,0,0))
+                tileInfo.Extent = TileTransform.TileToWorld(new TileRange(tileInfo.Index.Col, tileInfo.Index.Row), tileInfo.Index.Level, TileSource.Schema);
+            var viewport = Viewport.Create(tileInfo.Extent.ToMRect(), ZoomExtensions.ToResolution(tileInfo.Index.Level) * 0.5);
+            var feature = FetchTileAsVectorTile(tileInfo).Result;
+            if (Style is StyleCollection styleCollection)
+            {
+                var renderer = new VectorTileStyleRenderer();
+                using var bitmap = new SKBitmap(Convert.ToInt32(viewport.Width), Convert.ToInt32(viewport.Height));
+                using var layerCanvas = new SKCanvas(bitmap);
+                layerCanvas.Clear();
+                foreach (var vts in styleCollection.OfType<VectorTileStyle>())
+                    renderer.Draw(layerCanvas, viewport, this, feature, vts, new Rendering.Skia.SymbolCache(), 12);
+
+                return bitmap.Encode(SKEncodedImageFormat.Png, quality).ToArray();
+            }
+            return null;
+        }
+
+        /// <summary>
+        /// Save tile bitmap by tile index
+        /// </summary>
+        /// <param name="tileInfo">tile info</param>
+        /// <param name="filePath">File path</param>
+        /// <param name="quality">Quality</param>
+        public void SaveTileImage(TileInfo tileInfo, string filePath, int quality = 80)
+        {
+            var data = GetTileImage(tileInfo, quality);
+            if (data == null)
+                return;
+            File.WriteAllBytes(filePath, data);
         }
     }
 }
