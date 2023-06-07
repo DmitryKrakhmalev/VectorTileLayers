@@ -11,6 +11,7 @@ using System.Text.RegularExpressions;
 using Topten.RichTextKit;
 using Mapsui.VectorTileLayers.Core.Extensions;
 using System;
+using Mapsui.VectorTileLayers.OpenMapTiles.Extensions;
 
 namespace Mapsui.VectorTileLayers.OpenMapTiles
 {
