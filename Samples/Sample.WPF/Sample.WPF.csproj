@@ -42,9 +42,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="BruTile" Version="5.0.0" />
-    <PackageReference Include="Mapsui" Version="4.0.0-beta.5" />
-    <PackageReference Include="Mapsui.Wpf" Version="4.0.0-beta.5" />
+    <PackageReference Include="BruTile" Version="5.0.4" />
+    <PackageReference Include="Mapsui" Version="4.0.0-rc.2" />
+    <PackageReference Include="Mapsui.Wpf" Version="4.0.0-rc.2" />
     <PackageReference Include="sqlite-net-pcl" Version="1.9.141-beta" />
     <PackageReference Include="Topten.RichTextKit" Version="0.4.165" />
   </ItemGroup>
@@ -68,9 +68,6 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="styles\isogd\gp.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="styles\isogd\isogd — копия.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="styles\isogd\isogd.json">

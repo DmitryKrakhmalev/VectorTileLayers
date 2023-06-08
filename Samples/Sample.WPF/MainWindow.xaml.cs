@@ -3,7 +3,6 @@ using Mapsui;
 using Mapsui.Extensions;
 using Mapsui.Logging;
 using Mapsui.Rendering.Skia.SkiaWidgets;
-using Mapsui.Styles;
 using Mapsui.Utilities;
 using Mapsui.VectorTileLayers.Core.Enums;
 using Mapsui.VectorTileLayers.Core.Extensions;
@@ -29,6 +28,7 @@ namespace Sample.WPF
     public partial class MainWindow : Window
     {
         private readonly Performance _performance = new (10);
+        private int _rotation;
 
         public MainWindow()
         {
@@ -45,9 +45,7 @@ namespace Sample.WPF
             PrepareListView();
 
             //Примерно позиционируемся
-            mapControl.Navigator.ZoomTo(9.ToResolution());
-            mapControl.Navigator.RotateTo(0);
-            mapControl.Navigator.CenterOn(5589347.7922078343, 7029295.9187208461);
+            map.Home = m => m.CenterOnAndZoomTo(new MPoint(5589347.7922078343, 7029295.9187208461), m.Resolutions[7]);
         }
 
         private void PrepareListView()
@@ -67,16 +65,13 @@ namespace Sample.WPF
             btnRotateCCW.Click += BtnRotateCCW_Click;
             foreach (OMTVectorTileLayer vectorTileLayer in mapControl.Map.Layers.OfType<OMTVectorTileLayer>())
             {
-                if (vectorTileLayer?.Style is not StyleCollection styleCollection)
+                if (vectorTileLayer?.Style is not VectorTileStyle vectorTileStyle)
                     continue;
-                foreach (var vts in styleCollection.OfType<VectorTileStyle>())
+                foreach (var vectorStyle in vectorTileStyle.StyleLayers.OfType<OMTVectorTileStyle>())
                 {
-                    foreach (var vectorStyle in vts.StyleLayers.OfType<OMTVectorTileStyle>())
-                    {
-                        var item = new CheckBoxListViewItem(vectorStyle, vectorStyle.Id, vectorStyle.Enabled);
-                        item.PropertyChanged += Item_PropertyChanged;
-                        items.Add(item);
-                    }
+                    var item = new CheckBoxListViewItem(vectorStyle, vectorStyle.Id, vectorStyle.Enabled);
+                    item.PropertyChanged += Item_PropertyChanged;
+                    items.Add(item);
                 }
             }
         }
@@ -129,22 +124,24 @@ namespace Sample.WPF
 
         private void BtnRotateCCW_Click(object sender, RoutedEventArgs e)
         {
-            mapControl.Navigator.RotateTo(mapControl.Viewport.Rotation - 5);
+            _rotation -= 5;
+            mapControl.Map.Navigator.RotateTo(RotationCalculations.NormalizeRotation(_rotation));
         }
 
         private void BtnRotateCW_Click(object sender, RoutedEventArgs e)
         {
-            mapControl.Navigator.RotateTo(mapControl.Viewport.Rotation + 5);
+            _rotation += 5;
+            mapControl.Map.Navigator.RotateTo(RotationCalculations.NormalizeRotation(_rotation));
         }
 
         private void BtnZoomIn_Click(object sender, RoutedEventArgs e)
         {
-            mapControl.Navigator.ZoomIn(0);
+            mapControl.Map.Navigator.ZoomIn(0);
         }
 
         private void BtnZoomOut_Click(object sender, RoutedEventArgs e)
         {
-            mapControl.Navigator.ZoomOut(0);
+            mapControl.Map.Navigator.ZoomOut(0);
         }
 
         private void BtnAll_Click(object sender, RoutedEventArgs e)
@@ -179,7 +176,7 @@ namespace Sample.WPF
                 Rotation = 0
             };
             //Нужно как то обновить данные по интересующей территории
-            mapControl.Map.RefreshData(new Mapsui.Layers.FetchInfo(viewport.Extent, viewport.Resolution));
+            mapControl.Map.RefreshData(new Mapsui.Layers.FetchInfo(viewport.ToSection()));
             mapControl.RefreshGraphics();
             mapControl.ForceUpdate();
             var layers = mapControl.Map.Layers.FindLayer("SpecialZone").ToArray();
@@ -204,7 +201,6 @@ namespace Sample.WPF
             var filePath = Path.Combine(Environment.CurrentDirectory, "cache", $"{vectorLayer.Name}_{tileIndex.Col}_{tileIndex.Row}_{tileIndex.Level}.png");
             var tileInfo = new TileInfo() { Index = tileIndex};
             vectorLayer.SaveTileImage(tileInfo, filePath);
-
         }
 
         private void Item_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)

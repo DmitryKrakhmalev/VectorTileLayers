@@ -3,7 +3,7 @@ using BruTile.Predefined;
 using Mapsui.Fetcher;
 using Mapsui.Layers;
 using Mapsui.Logging;
-using Mapsui.Styles;
+using Mapsui.Rendering.Skia.Cache;
 using Mapsui.Tiling.Extensions;
 using Mapsui.Tiling.Fetcher;
 using Mapsui.Tiling.Rendering;
@@ -73,10 +73,7 @@ namespace Mapsui.VectorTileLayers.OpenMapTiles
             // We have our only cache for ready processed vector tiles
             MemoryCache = new BruTile.Cache.MemoryCache<IFeature>(minTiles, maxTiles);
 
-            Style = new StyleCollection {
-                new VectorTileStyle(0, 24, vectorStyles),
-                //new SymbolTileStyle(0, 24, vectorStyles)
-            };
+            Style = new VectorTileStyle(0, 24, vectorStyles);
             
             Attribution.Text = _tileSource.Attribution?.Text;
             Attribution.Url = _tileSource.Attribution?.Url;
@@ -177,7 +174,7 @@ namespace Mapsui.VectorTileLayers.OpenMapTiles
 
                 watch.Start();
 
-                var tree = OMTSymbolLayouter.Layout(((VectorTileStyle)((Styles.StyleCollection)Style)[0]).StyleLayers, vectorTiles, zoomLevel, minCol, minRow, token);
+                var tree = OMTSymbolLayouter.Layout(((VectorTileStyle)Style).StyleLayers, vectorTiles, zoomLevel, minCol, minRow, token);
 
                 if (!token.IsCancellationRequested)
                 {
@@ -444,18 +441,27 @@ namespace Mapsui.VectorTileLayers.OpenMapTiles
         {
             if (tileInfo.Extent == null || tileInfo.Extent == new BruTile.Extent(0,0,0,0))
                 tileInfo.Extent = TileTransform.TileToWorld(new TileRange(tileInfo.Index.Col, tileInfo.Index.Row), tileInfo.Index.Level, TileSource.Schema);
-            var viewport = Viewport.Create(tileInfo.Extent.ToMRect(), ZoomExtensions.ToResolution(tileInfo.Index.Level) * 0.5);
+            var w = _schema.GetTileWidth(tileInfo.Index.Level);
+            var h = _schema.GetTileHeight(tileInfo.Index.Level);
+            var viewport = new Viewport(tileInfo.Extent.CenterX, tileInfo.Extent.CenterY, ZoomExtensions.ToResolution(tileInfo.Index.Level), 0, w, h);
+                
             var feature = FetchTileAsVectorTile(tileInfo).Result;
-            if (Style is StyleCollection styleCollection)
+            if (Style is VectorTileStyle vectorTileStyle)
             {
                 var renderer = new VectorTileStyleRenderer();
                 using var bitmap = new SKBitmap(Convert.ToInt32(viewport.Width), Convert.ToInt32(viewport.Height));
                 using var layerCanvas = new SKCanvas(bitmap);
                 layerCanvas.Clear();
-                foreach (var vts in styleCollection.OfType<VectorTileStyle>())
-                    renderer.Draw(layerCanvas, viewport, this, feature, vts, new Rendering.Skia.SymbolCache(), 12);
-
-                return bitmap.Encode(SKEncodedImageFormat.Png, quality).ToArray();
+                renderer.Draw(layerCanvas, viewport, this, feature, vectorTileStyle, new RenderCache(), 12);
+                var imageFormat = _schema.Format.ToLower() switch
+                {
+                    "png" => SKEncodedImageFormat.Png,
+                    "jpg" => SKEncodedImageFormat.Jpeg,
+                    "jpeg" => SKEncodedImageFormat.Jpeg,
+                    "bmp" => SKEncodedImageFormat.Bmp,
+                    _ => throw new NotImplementedException(),
+                };
+                return bitmap.Encode(imageFormat, quality).ToArray();
             }
             return null;
         }
@@ -471,6 +477,9 @@ namespace Mapsui.VectorTileLayers.OpenMapTiles
             var data = GetTileImage(tileInfo, quality);
             if (data == null)
                 return;
+            var directory = Path.GetDirectoryName(filePath);
+            if (!Directory.Exists(directory))
+                Directory.CreateDirectory(directory);
             File.WriteAllBytes(filePath, data);
         }
     }

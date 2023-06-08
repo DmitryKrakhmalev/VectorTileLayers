@@ -30,7 +30,7 @@ namespace Mapsui.VectorTileLayers.Core
 
         public VectorTileFeature(TileInfo tileInfo, int tileSize, float tileSizeOfData, IStyle style)
         {
-            _styleLayers = ((VectorTileStyle)((StyleCollection)style)[0]).StyleLayers;
+            _styleLayers = ((VectorTileStyle)style).StyleLayers;
             _scale = tileSize / tileSizeOfData;
             _tileInfo = tileInfo;
             _context = new EvaluationContext(_tileInfo.Index.Level);

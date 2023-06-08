@@ -1,8 +1,5 @@
 ﻿using BruTile;
-using BruTile.Cache;
 using Mapsui.Styles;
-using Mapsui.VectorTileLayers.Core.Primitives;
-using RBush;
 using System;
 using System.Collections.Generic;
 
