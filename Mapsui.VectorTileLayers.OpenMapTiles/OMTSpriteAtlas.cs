@@ -95,7 +95,7 @@ namespace Mapsui.VectorTileLayers.OpenMapTiles
                 json = reader.ReadToEnd();
             }
 
-            var bitmapAtlasData = SKData.Create(bitmapAtlasStream);
+            using var bitmapAtlasData = SKData.Create(bitmapAtlasStream);
             var bitmapAtlas = SKImage.FromEncodedData(bitmapAtlasData);
             if (bitmapAtlas != null)
                 CreateSprites(json, bitmapAtlas);

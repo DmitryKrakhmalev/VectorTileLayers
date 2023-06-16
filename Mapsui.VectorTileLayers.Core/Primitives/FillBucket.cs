@@ -15,7 +15,6 @@ namespace Mapsui.VectorTileLayers.Core.Primitives
 
         public List<SKPath> Paths { get; }
         public SKPath Path { get; }
-        public TagsCollection Tags { get; private set; }
 
         public void AddElement(VectorElement element)
         {
@@ -27,8 +26,10 @@ namespace Mapsui.VectorTileLayers.Core.Primitives
                     Paths.Add(path);
                     Path.AddPath(path);
                 }
-                Tags = new TagsCollection(element.Tags.KeyValues);
             }
+            //If the object is linear, we draw only the contour
+            if (element.Type == GeometryType.LineString)
+                element.AddToPath(Path);
         }
 
         public void SimplifyPaths()
@@ -36,11 +37,11 @@ namespace Mapsui.VectorTileLayers.Core.Primitives
             // TODO: Path.Simplify doesn't work correct
             // Path.Simplify(Path);
 
-            foreach (var path in Paths)
+            /*foreach (var path in Paths)
             {
                 // TODO: Path.Simplify doesn't work correct
                 // path.Simplify(path);
-            }
+            }*/
         }
 
         public void Dispose()

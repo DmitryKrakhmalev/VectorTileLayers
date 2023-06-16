@@ -119,7 +119,6 @@ namespace Mapsui.VectorTileLayers.OpenMapTiles
                 return Enumerable.Empty<IFeature>();
             }
 
-            UpdateMemoryCacheMinAndMax();
 
             var zoomLevel = (int)resolution.ToZoomLevel();
 
@@ -209,7 +208,6 @@ namespace Mapsui.VectorTileLayers.OpenMapTiles
         /// <inheritdoc />
         public void ClearCache()
         {
-            ((BruTile.Cache.MemoryCache<IFeature>)MemoryCache).Clear();
         }
 
         /// <inheritdoc />
@@ -227,11 +225,6 @@ namespace Mapsui.VectorTileLayers.OpenMapTiles
 
         protected override void Dispose(bool disposing)
         {
-            if (disposing)
-            {
-                ((BruTile.Cache.MemoryCache<IFeature>)MemoryCache).Dispose();
-            }
-
             base.Dispose(disposing);
         }
 
@@ -249,15 +242,6 @@ namespace Mapsui.VectorTileLayers.OpenMapTiles
             }
         }
 
-        private void UpdateMemoryCacheMinAndMax()
-        {
-            if (_minExtraTiles < 0 || _maxExtraTiles < 0) return;
-            if (_numberTilesNeeded == _tileFetchDispatcher.NumberTilesNeeded) return;
-
-            _numberTilesNeeded = _tileFetchDispatcher.NumberTilesNeeded;
-            ((BruTile.Cache.MemoryCache<IFeature>)MemoryCache).MinTiles = _numberTilesNeeded + _minExtraTiles;
-            ((BruTile.Cache.MemoryCache<IFeature>)MemoryCache).MaxTiles = _numberTilesNeeded + _maxExtraTiles;
-        }
 
         private void TileFetchDispatcherOnDataChanged(object sender, DataChangedEventArgs e)
         {
@@ -269,25 +253,14 @@ namespace Mapsui.VectorTileLayers.OpenMapTiles
             if (_tileSource == null)
                 return null;
 
-            var vectorTileFeature = (VectorTileFeature)MemoryCache.Find(tileInfo.Index);
-
-            if (vectorTileFeature != null)
-                return vectorTileFeature;
-
             // We don't create tiles with zoom higher than TileSource could provide
             //if (tileInfo.Index.Level > _tileSource.Schema.Resolutions.Count - 1)
             //    return null;
 
             // Get binary data from tile source as byte[]
             var (tileData, overzoom) = GetTileData(tileInfo);
-
-            // We find data in the tile source for this tile, perhaps on lower levels
-            if (tileData != null) // && overzoom == Overzoom.None)
-                vectorTileFeature = ToVectorTile(tileInfo, overzoom, ref tileData);
-
-            MemoryCache.Add(tileInfo.Index, vectorTileFeature);
-
-            return vectorTileFeature;
+            //Пропускаем добавление в MemoryCache
+            return tileData != null ? ToVectorTile(tileInfo, overzoom, ref tileData) : null;
         }
 
         /// <summary>
@@ -385,6 +358,10 @@ namespace Mapsui.VectorTileLayers.OpenMapTiles
             {
                 Logger.Log(LogLevel.Error, $"Exception while parsing tile {tileInfo.Index.Col}/{tileInfo.Index.Row}/{tileInfo.Index.Level}", e);
             }
+            finally 
+            { 
+                stream.Dispose(); 
+            }
 
             return sink;
         }
@@ -411,20 +388,20 @@ namespace Mapsui.VectorTileLayers.OpenMapTiles
             if (stream.Length < signatureSize)
                 return false;
 
-            byte[] signature = new byte[signatureSize];
-            int bytesRequired = signatureSize;
-            int index = 0;
+            var signature = new byte[signatureSize];
+            var bytesRequired = signatureSize;
+            var index = 0;
 
             while (bytesRequired > 0)
             {
-                int bytesRead = stream.Read(signature, index, bytesRequired);
+                var bytesRead = stream.Read(signature, index, bytesRequired);
                 bytesRequired -= bytesRead;
                 index += bytesRead;
             }
 
             stream.Seek(0, SeekOrigin.Begin);
 
-            string actualSignature = BitConverter.ToString(signature);
+            var actualSignature = BitConverter.ToString(signature);
             if (actualSignature == expectedSignature)
                 return true;
 

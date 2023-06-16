@@ -2,6 +2,7 @@
 using Mapsui.VectorTileLayers.Core.Primitives;
 using Newtonsoft.Json.Linq;
 using System;
+using System.Linq;
 
 namespace Mapsui.VectorTileLayers.OpenMapTiles.Expressions
 {
@@ -30,7 +31,11 @@ namespace Mapsui.VectorTileLayers.OpenMapTiles.Expressions
 
         public override object Evaluate(EvaluationContext ctx = null)
         {
-            return _propertyName;
+            //Get value from semantic
+            var elem = ctx?.Tags?.KeyValues.FirstOrDefault(x => x.Key == _propertyName);
+            if (elem == null)
+                return null;
+            return  elem.Value.Value;
         }
 
         public override object PossibleOutputs()

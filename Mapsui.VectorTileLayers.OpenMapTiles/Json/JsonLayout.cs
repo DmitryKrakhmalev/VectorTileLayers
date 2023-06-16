@@ -16,13 +16,13 @@ namespace Mapsui.VectorTileLayers.OpenMapTiles.Json
         [JsonProperty("line-join")]
         public string LineJoin { get; set; } = "miter";
 
-        [JsonConverter(typeof(StoppedFloatConverter))]
+        [JsonConverter(typeof(AdvancedFloatConverter))]
         [JsonProperty("line-miter-limit")]
-        public StoppedFloat LineMiterLimit { get; set; } = new StoppedFloat { SingleVal = 2f };
+        public AdvancedFloat LineMiterLimit { get; set; } = new AdvancedFloat { SingleVal = 2f };
 
-        [JsonConverter(typeof(StoppedFloatConverter))]
+        [JsonConverter(typeof(AdvancedFloatConverter))]
         [JsonProperty("line-round-limit")]
-        public StoppedFloat LineRoundLimit { get; set; } = new StoppedFloat { SingleVal = 1.05f };
+        public AdvancedFloat LineRoundLimit { get; set; } = new AdvancedFloat { SingleVal = 1.05f };
 
         [JsonProperty("visibility")]
         public string Visibility { get; set; } = "visible";
@@ -30,21 +30,21 @@ namespace Mapsui.VectorTileLayers.OpenMapTiles.Json
         [JsonProperty("text-font")]
         public JArray TextFont { get; set; }
 
-        [JsonConverter(typeof(StoppedStringConverter))]
+        [JsonConverter(typeof(AdvancedStringConverter))]
         [JsonProperty("text-field")]
-        public StoppedString TextField { get; set; }
+        public AdvancedString TextField { get; set; }
 
-        [JsonConverter(typeof(StoppedFloatConverter))]
+        [JsonConverter(typeof(AdvancedFloatConverter))]
         [JsonProperty("text-max-width")]
-        public StoppedFloat TextMaxWidth { get; set; }
+        public AdvancedFloat TextMaxWidth { get; set; }
 
-        [JsonConverter(typeof(StoppedFloatConverter))]
+        [JsonConverter(typeof(AdvancedFloatConverter))]
         [JsonProperty("text-size")]
-        public StoppedFloat TextSize { get; set; }
+        public AdvancedFloat TextSize { get; set; }
 
-        [JsonConverter(typeof(StoppedFloatConverter))]
+        [JsonConverter(typeof(AdvancedFloatConverter))]
         [JsonProperty("text-padding")]
-        public StoppedFloat TextPadding { get; set; }
+        public AdvancedFloat TextPadding { get; set; }
 
         [JsonProperty("text-offset")]
         public float[] TextOffset { get; set; }
@@ -67,32 +67,32 @@ namespace Mapsui.VectorTileLayers.OpenMapTiles.Json
         [JsonProperty("icon-rotation-alignment")]
         public string IconRotationAlignment { get; set; }
 
-        [JsonConverter(typeof(StoppedFloatConverter))]
+        [JsonConverter(typeof(AdvancedFloatConverter))]
         [JsonProperty("text-max-angle")]
-        public StoppedFloat TextMaxAngle { get; set; }
+        public AdvancedFloat TextMaxAngle { get; set; }
 
         [JsonProperty("text-transform")]
         public string TextTransform { get; set; }
 
-        [JsonConverter(typeof(StoppedFloatConverter))]
+        [JsonConverter(typeof(AdvancedFloatConverter))]
         [JsonProperty("text-letter-spacing")]
-        public StoppedFloat TextLetterSpacing { get; set; }
+        public AdvancedFloat TextLetterSpacing { get; set; }
 
-        [JsonConverter(typeof(StoppedFloatConverter))]
+        [JsonConverter(typeof(AdvancedFloatConverter))]
         [JsonProperty("text-line-height")]
-        public StoppedFloat TextLineHeight { get; set; }
+        public AdvancedFloat TextLineHeight { get; set; }
 
-        [JsonConverter(typeof(StoppedFloatConverter))]
+        [JsonConverter(typeof(AdvancedFloatConverter))]
         [JsonProperty("text-halo-blur")]
-        public StoppedFloat TextHaloBlur { get; set; }
+        public AdvancedFloat TextHaloBlur { get; set; }
 
-        [JsonConverter(typeof(StoppedColorConverter))]
+        [JsonConverter(typeof(AdvancedColorConverter))]
         [JsonProperty("text-halo-color")]
-        public StoppedColor TextHaloColor { get; set; }
+        public AdvancedColor TextHaloColor { get; set; }
 
-        [JsonConverter(typeof(StoppedFloatConverter))]
+        [JsonConverter(typeof(AdvancedFloatConverter))]
         [JsonProperty("text-halo-width")]
-        public StoppedFloat TextHaloWidth { get; set; }
+        public AdvancedFloat TextHaloWidth { get; set; }
 
         [JsonProperty("text-ignore-placement")]
         public bool TextIgnorePlacement { get; set; }
@@ -103,13 +103,13 @@ namespace Mapsui.VectorTileLayers.OpenMapTiles.Json
         [JsonProperty("text-pitch-alignment")]
         public string TextPitchAlignment { get; set; }
 
-        [JsonConverter(typeof(StoppedFloatConverter))]
+        [JsonConverter(typeof(AdvancedFloatConverter))]
         [JsonProperty("text-radial-offset")]
-        public StoppedFloat TextRadialOffset { get; set; }
+        public AdvancedFloat TextRadialOffset { get; set; }
 
-        [JsonConverter(typeof(StoppedFloatConverter))]
+        [JsonConverter(typeof(AdvancedFloatConverter))]
         [JsonProperty("text-rotate")]
-        public StoppedFloat TextRotate { get; set; }
+        public AdvancedFloat TextRotate { get; set; }
 
         [JsonProperty("text-translate")]
         public float[] TextTranslate { get; set; }
@@ -123,17 +123,17 @@ namespace Mapsui.VectorTileLayers.OpenMapTiles.Json
         [JsonProperty("text-writing-mode")]
         public string[] TextWritingMode { get; set; }
 
-        [JsonConverter(typeof(StoppedStringConverter))]
+        [JsonConverter(typeof(AdvancedStringConverter))]
         [JsonProperty("icon-image")]
-        public StoppedString IconImage { get; set; }
+        public AdvancedString IconImage { get; set; }
 
-        [JsonConverter(typeof(StoppedStringConverter))]
+        [JsonConverter(typeof(AdvancedStringConverter))]
         [JsonProperty("symbol-placement")]
-        public StoppedString SymbolPlacement { get; set; } = new StoppedString { SingleVal = "point" };
+        public AdvancedString SymbolPlacement { get; set; } = new AdvancedString { SingleVal = "point" };
 
-        [JsonConverter(typeof(StoppedFloatConverter))]
+        [JsonConverter(typeof(AdvancedFloatConverter))]
         [JsonProperty("symbol-spacing")]
-        public StoppedFloat SymbolSpacing { get; set; } = new StoppedFloat { SingleVal = 250f };
+        public AdvancedFloat SymbolSpacing { get; set; } = new AdvancedFloat { SingleVal = 250f };
 
         [JsonProperty("symbol-z-order")]
         public string SymbolZOrder { get; set; }
@@ -141,32 +141,32 @@ namespace Mapsui.VectorTileLayers.OpenMapTiles.Json
         [JsonProperty("icon-anchor")]
         public string IconAnchor { get; set; } = "center";
 
-        [JsonConverter(typeof(StoppedColorConverter))]
+        [JsonConverter(typeof(AdvancedColorConverter))]
         [JsonProperty("icon-color")]
-        public StoppedColor IconColor { get; set; }
+        public AdvancedColor IconColor { get; set; }
 
-        [JsonConverter(typeof(StoppedFloatConverter))]
+        [JsonConverter(typeof(AdvancedFloatConverter))]
         [JsonProperty("icon-halo-blur")]
-        public StoppedFloat IconHaloBlur { get; set; }
+        public AdvancedFloat IconHaloBlur { get; set; }
 
-        [JsonConverter(typeof(StoppedColorConverter))]
+        [JsonConverter(typeof(AdvancedColorConverter))]
         [JsonProperty("icon-halo-color")]
-        public StoppedColor IconHaloColor { get; set; }
+        public AdvancedColor IconHaloColor { get; set; }
 
-        [JsonConverter(typeof(StoppedFloatConverter))]
+        [JsonConverter(typeof(AdvancedFloatConverter))]
         [JsonProperty("icon-halo-width")]
-        public StoppedFloat IconHaloWidth { get; set; }
+        public AdvancedFloat IconHaloWidth { get; set; }
 
         [JsonProperty("icon-ignore-placement")]
         public bool IconIgnorePlacement { get; set; } = false;
 
-        [JsonConverter(typeof(StoppedFloatConverter))]
+        [JsonConverter(typeof(AdvancedFloatConverter))]
         [JsonProperty("icon-padding")]
-        public StoppedFloat IconPadding { get; set; }
+        public AdvancedFloat IconPadding { get; set; }
 
-        [JsonConverter(typeof(StoppedFloatConverter))]
+        [JsonConverter(typeof(AdvancedFloatConverter))]
         [JsonProperty("icon-size")]
-        public StoppedFloat IconSize { get; set; }
+        public AdvancedFloat IconSize { get; set; }
 
         [JsonProperty("icon-offset")]
         public float[] IconOffset { get; set; }
@@ -174,9 +174,9 @@ namespace Mapsui.VectorTileLayers.OpenMapTiles.Json
         [JsonProperty("icon-optional")]
         public bool IconOptional { get; set; }
 
-        [JsonConverter(typeof(StoppedFloatConverter))]
+        [JsonConverter(typeof(AdvancedFloatConverter))]
         [JsonProperty("icon-opacity")]
-        public StoppedFloat IconOpacity { get; set; }
+        public AdvancedFloat IconOpacity { get; set; }
 
         [JsonProperty("icon-allow-overlap")]
         public bool IconAllowOverlap { get; set; } = false;
@@ -187,9 +187,9 @@ namespace Mapsui.VectorTileLayers.OpenMapTiles.Json
         [JsonProperty("icon-pitch-alignment")]
         public string IconPitchAlignment { get; set; }
 
-        [JsonConverter(typeof(StoppedFloatConverter))]
+        [JsonConverter(typeof(AdvancedFloatConverter))]
         [JsonProperty("icon-rotate")]
-        public StoppedFloat IconRotate { get; set; }
+        public AdvancedFloat IconRotate { get; set; }
 
         [JsonProperty("icon-text-fit")]
         public string IconTextFit { get; set; }

@@ -25,11 +25,11 @@ namespace Mapsui.VectorTileLayers.OpenMapTiles
 
         public bool TextOptional { get; set; }
 
-        public StoppedFloat TextHaloBlur { get; set; } = new StoppedFloat() { SingleVal = 0 };
+        public AdvancedFloat TextHaloBlur { get; set; } = new AdvancedFloat() { SingleVal = 0 };
 
-        public StoppedColor TextHaloColor { get; set; } = new StoppedColor() { SingleVal = new SKColor(0, 0, 0, 0) };
+        public AdvancedColor TextHaloColor { get; set; } = new AdvancedColor() { SingleVal = new SKColor(0, 0, 0, 0) };
 
-        public StoppedFloat TextHaloWidth { get; set; } = new StoppedFloat() { SingleVal = 0 };
+        public AdvancedFloat TextHaloWidth { get; set; } = new AdvancedFloat() { SingleVal = 0 };
 
         public override void Update(EvaluationContext context)
         {

@@ -5,14 +5,14 @@
     <AssemblyName>Mapsui.VectorTileLayers.OpenMapTiles</AssemblyName>
     <RootNamespace>Mapsui.VectorTileLayers.OpenMapTiles</RootNamespace>
     <LangVersion>8.0</LangVersion>
-    <Version>0.1.0</Version>
+    <Version>0.4.0</Version>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
     <Title>VectorTileLayers.OpenMapTiles - test</Title>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="BruTile.MbTiles" Version="5.0.4" />
-    <PackageReference Include="Mapsui" Version="4.0.0-rc.2" />
+    <PackageReference Include="Mapsui" Version="4.0.0-rc.3" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
     <PackageReference Include="protobuf-net" Version="3.2.26" />
     <PackageReference Include="RBush" Version="3.2.0" />

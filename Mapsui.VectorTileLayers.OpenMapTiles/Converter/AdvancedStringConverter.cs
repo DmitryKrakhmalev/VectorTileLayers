@@ -5,11 +5,10 @@ using System.Collections.Generic;
 using Mapsui.VectorTileLayers.OpenMapTiles.Expressions;
 using Mapsui.VectorTileLayers.OpenMapTiles.Json;
 using Mapsui.Logging;
-using Mapsui.VectorTileLayers.Core.Interfaces;
 
 namespace Mapsui.VectorTileLayers.OpenMapTiles.Converter
 {
-    public class StoppedStringConverter : ExpressionConverter
+    public class AdvancedStringConverter : ExpressionConverter
     {
         public override bool CanConvert(Type objectType)
         {
@@ -19,13 +18,13 @@ namespace Mapsui.VectorTileLayers.OpenMapTiles.Converter
         public override object ReadJson(JsonReader reader,
             Type objectType, object existingValue, JsonSerializer serializer)
         {
-            JToken token = JToken.Load(reader);
+            var token = JToken.Load(reader);
             try
             {
                 switch (token.Type)
                 {
                     case JTokenType.Object:
-                        var stoppedString = new StoppedString
+                        var stoppedString = new AdvancedString
                         {
                             Stops = new List<KeyValuePair<float, string>>(),
                             Base = token.SelectToken("base").ToObject<float>()
@@ -40,23 +39,11 @@ namespace Mapsui.VectorTileLayers.OpenMapTiles.Converter
 
                         return stoppedString;
                     case JTokenType.Array:
-                        //Пока заглушаю... не знаю как это обработать
-                        var exp = ExpressionParser.ParseExpression(token.ToString(), typeof(string));
-                        if (exp is StepExpression step)
-                        {
-                            var value = step.ObjectType switch
-                            {
-                                "string" => step.Value.ToString(),
-                                //Для дополнительной логики с разными типами
-                                _ => step.Value.ToString()
-                            };
-                            return new StoppedString() { SingleVal = value };
-                        }
-                        else
-                            return new StoppedString() { SingleVal = "TEST" };
+                        //Обработчик выражений, таких как match, case, step и т.п.
+                        return new AdvancedString() { Expression = ExpressionParser.ParseExpression(token.ToString(), typeof(string)) };
 
                     default:
-                        return new StoppedString() { SingleVal = token.Value<string>() };
+                        return new AdvancedString() { SingleVal = token.Value<string>() };
                 }
             }
             catch (Exception ex)
@@ -64,7 +51,6 @@ namespace Mapsui.VectorTileLayers.OpenMapTiles.Converter
                 Logger.Log(LogLevel.Error, $"Error convert {token} to StoppedString. Path {reader.Path}", ex);
                 throw;
             }
-
         }
 
         public override bool CanWrite => false;

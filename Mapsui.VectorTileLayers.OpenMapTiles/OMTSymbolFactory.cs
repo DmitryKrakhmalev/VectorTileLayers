@@ -44,35 +44,35 @@ namespace Mapsui.VectorTileLayers.OpenMapTiles
 
         public Direction IconAnchor { get; internal set; } = Direction.Center;
 
-        public StoppedColor IconColor { get; internal set; } = new StoppedColor() { SingleVal = new SKColor(0, 0, 0, 255) };
+        public AdvancedColor IconColor { get; internal set; } = new AdvancedColor() { SingleVal = new SKColor(0, 0, 0, 255) };
 
-        public StoppedFloat IconHaloBlur { get; internal set; } = new StoppedFloat() { SingleVal = 0 };
+        public AdvancedFloat IconHaloBlur { get; internal set; } = new AdvancedFloat() { SingleVal = 0 };
 
-        public StoppedColor IconHaloColor { get; internal set; } = new StoppedColor() { SingleVal = new SKColor(0, 0, 0, 0) };
+        public AdvancedColor IconHaloColor { get; internal set; } = new AdvancedColor() { SingleVal = new SKColor(0, 0, 0, 0) };
 
-        public StoppedFloat IconHaloWidth { get; internal set; } = new StoppedFloat() { SingleVal = 0 };
+        public AdvancedFloat IconHaloWidth { get; internal set; } = new AdvancedFloat() { SingleVal = 0 };
 
         public bool IconIgnorePlacement { get; internal set; } = false;
 
-        public StoppedString IconImage { get; internal set; }
+        public AdvancedString IconImage { get; internal set; }
 
         public bool IconKeepUpright { get; internal set; }
 
         public Vector IconOffset { get; internal set; } = Vector.Empty;
 
-        public StoppedFloat IconOpacity { get; internal set; } = new StoppedFloat() { SingleVal = 1 };
+        public AdvancedFloat IconOpacity { get; internal set; } = new AdvancedFloat() { SingleVal = 1 };
 
         public bool IconOptional { get; internal set; } = false;
 
-        public StoppedFloat IconPadding { get; internal set; } = new StoppedFloat() { SingleVal = 2 };
+        public AdvancedFloat IconPadding { get; internal set; } = new AdvancedFloat() { SingleVal = 2 };
 
         public MapAlignment IconPitchAlignment { get; internal set; } = MapAlignment.Auto;
 
-        public StoppedFloat IconRotate { get; internal set; } = new StoppedFloat() { SingleVal = 0 };
+        public AdvancedFloat IconRotate { get; internal set; } = new AdvancedFloat() { SingleVal = 0 };
 
         public MapAlignment IconRotationAlignment { get; internal set; } = MapAlignment.Auto;
 
-        public StoppedFloat IconSize { get; internal set; } = new StoppedFloat() { SingleVal = 1 };
+        public AdvancedFloat IconSize { get; internal set; } = new AdvancedFloat() { SingleVal = 1 };
 
         public TextFit IconTextFit { get; internal set; } = TextFit.None;
 
@@ -84,11 +84,11 @@ namespace Mapsui.VectorTileLayers.OpenMapTiles
 
         public bool SymbolAvoidEdges { get; internal set; }
 
-        public StoppedString SymbolPlacement { get; internal set; } = new StoppedString() { SingleVal = "point" };
+        public AdvancedString SymbolPlacement { get; internal set; } = new AdvancedString() { SingleVal = "point" };
 
         public float SymbolSortKey { get; internal set; }
 
-        public StoppedFloat SymbolSpacing { get; internal set; } = new StoppedFloat() { SingleVal = 250 };
+        public AdvancedFloat SymbolSpacing { get; internal set; } = new AdvancedFloat() { SingleVal = 250 };
 
         public ZOrder SymbolZOrder { get; internal set; } = ZOrder.Auto;
 
@@ -96,17 +96,17 @@ namespace Mapsui.VectorTileLayers.OpenMapTiles
 
         public Direction TextAnchor { get; internal set; } = Direction.Center;
 
-        public StoppedColor TextColor { get; internal set; } = new StoppedColor() { SingleVal = new SKColor(0, 0, 0, 255) };
+        public AdvancedColor TextColor { get; internal set; } = new AdvancedColor() { SingleVal = new SKColor(0, 0, 0, 255) };
 
-        public string TextField { get; internal set; } = "";
+        public AdvancedString TextField { get; internal set; }
 
         public List<string> TextFont { get; internal set; } = new List<string>();
 
-        public StoppedFloat TextHaloBlur { get; internal set; } = new StoppedFloat() { SingleVal = 0 };
+        public AdvancedFloat TextHaloBlur { get; internal set; } = new AdvancedFloat() { SingleVal = 0 };
 
-        public StoppedColor TextHaloColor { get; internal set; } = new StoppedColor() { SingleVal = new SKColor(0, 0, 0, 0) };
+        public AdvancedColor TextHaloColor { get; internal set; } = new AdvancedColor() { SingleVal = new SKColor(0, 0, 0, 0) };
 
-        public StoppedFloat TextHaloWidth { get; internal set; } = new StoppedFloat() { SingleVal = 0 };
+        public AdvancedFloat TextHaloWidth { get; internal set; } = new AdvancedFloat() { SingleVal = 0 };
 
         public bool TextIgnorePlacement { get; internal set; } = false;
 
@@ -114,31 +114,31 @@ namespace Mapsui.VectorTileLayers.OpenMapTiles
 
         public bool TextKeepUpright { get; internal set; }
 
-        public StoppedFloat TextLetterSpacing { get; internal set; } = new StoppedFloat() { SingleVal = 0 };
+        public AdvancedFloat TextLetterSpacing { get; internal set; } = new AdvancedFloat() { SingleVal = 0 };
 
-        public StoppedFloat TextLineHeight { get; internal set; } = new StoppedFloat() { SingleVal = 1.2f };
+        public AdvancedFloat TextLineHeight { get; internal set; } = new AdvancedFloat() { SingleVal = 1.2f };
 
-        public StoppedFloat TextMaxAngle { get; internal set; } = new StoppedFloat() { SingleVal = 45 };
+        public AdvancedFloat TextMaxAngle { get; internal set; } = new AdvancedFloat() { SingleVal = 45 };
 
-        public StoppedFloat TextMaxWidth { get; internal set; } = new StoppedFloat() { SingleVal = 10 };
+        public AdvancedFloat TextMaxWidth { get; internal set; } = new AdvancedFloat() { SingleVal = 10 };
 
         public Vector TextOffset { get; internal set; } = Vector.Empty;
 
-        public StoppedFloat TextOpacity { get; internal set; } = new StoppedFloat() { SingleVal = 1 };
+        public AdvancedFloat TextOpacity { get; internal set; } = new AdvancedFloat() { SingleVal = 1 };
 
         public bool TextOptional { get; internal set; } = false;
 
-        public StoppedFloat TextPadding { get; internal set; } = new StoppedFloat() { SingleVal = 2 };
+        public AdvancedFloat TextPadding { get; internal set; } = new AdvancedFloat() { SingleVal = 2 };
 
         public MapAlignment TextPitchAlignment { get; internal set; } = MapAlignment.Auto;
 
-        public StoppedFloat TextRadialOffset { get; internal set; } = new StoppedFloat() { SingleVal = 0 };
+        public AdvancedFloat TextRadialOffset { get; internal set; } = new AdvancedFloat() { SingleVal = 0 };
 
-        public StoppedFloat TextRotate { get; internal set; } = new StoppedFloat() { SingleVal = 0 };
+        public AdvancedFloat TextRotate { get; internal set; } = new AdvancedFloat() { SingleVal = 0 };
 
         public MapAlignment TextRotationAlignment { get; internal set; } = MapAlignment.Auto;
 
-        public StoppedFloat TextSize { get; internal set; } = new StoppedFloat() { SingleVal = 16 };
+        public AdvancedFloat TextSize { get; internal set; } = new AdvancedFloat() { SingleVal = 16 };
 
         public TextTransform TextTransform { get; internal set; } = TextTransform.None;
 
@@ -155,10 +155,11 @@ namespace Mapsui.VectorTileLayers.OpenMapTiles
         /// </summary>
         public void Update()
         {
-            if (TextField == string.Empty)
+            //Отключил. Логика не понятна
+            /*if (TextField.Evaluate(null) == null)
             {
                 return;
-            }
+            }*/
         }
 
         private Style CreateTextStyle()
@@ -227,7 +228,7 @@ namespace Mapsui.VectorTileLayers.OpenMapTiles
             result.Subclass = tags.ContainsKey("subclass") ? tags["subclass"].ToString() : string.Empty;
             result.Rank = tags.ContainsKey("rank") ? int.Parse(tags["rank"].ToString()) : 0;
 
-            var iconName = ReplaceWithTags(context != null ? IconImage.Evaluate(context.Zoom) : IconImage.Evaluate(0), tags, context);
+            var iconName = ReplaceWithTags(context != null ? (string)IconImage.Evaluate(context) : (string)IconImage.Evaluate(null), tags, context);
 
             if (string.IsNullOrEmpty(iconName))
             {
@@ -249,7 +250,7 @@ namespace Mapsui.VectorTileLayers.OpenMapTiles
             result.Offset = new MPoint(offsetX, offsetY);
             result.Padding = (float)IconPadding.Evaluate(context);
 
-            result.IconSize = IconSize.Evaluate(context.Zoom);
+            result.IconSize = (float)IconSize.Evaluate(context);
             result.Rotation = rotation == 0 ? (float)IconRotate.Evaluate(context) : rotation;
             result.IconOptional = IconOptional;
             result.IgnorePlacement = IconIgnorePlacement;
@@ -264,6 +265,7 @@ namespace Mapsui.VectorTileLayers.OpenMapTiles
         {
             if (TextField == null)
                 return null;
+            var text = TextField.Evaluate(context) as string;
 
             var textBlock = new TextBlock();
 
@@ -278,7 +280,7 @@ namespace Mapsui.VectorTileLayers.OpenMapTiles
             result.Subclass = tags.ContainsKey("subclass") ? tags["subclass"].ToString() : string.Empty;
             result.Rank = tags.ContainsKey("rank") ? int.Parse(tags["rank"].ToString()) : 0;
 
-            var fieldName = ReplaceWithTags(TextField, tags, context);
+            var fieldName = ReplaceWithTags(text, tags, context);
             fieldName = ReplaceWithTransforms(fieldName, TextTransform);
 
             if (fieldName == string.Empty)
@@ -293,8 +295,16 @@ namespace Mapsui.VectorTileLayers.OpenMapTiles
 
             result.TextBlock.MaxWidth = (float)TextMaxWidth.Evaluate(context) * result.TextStyle.FontSize;
             result.TextBlock.BaseDirection = TextDirection.Auto;
+            if (result.TextBlock.FontMapper == null)
+                result.TextBlock.FontMapper = FontMapper.Default;
 
-            var test = result.TextBlock.FontRuns[0];
+            /*if (result.TextBlock.FontRuns.Count == 0)                
+            {
+                Console.WriteLine("FontRuns is Empty! Text not rendered");
+                return null;
+            }
+            
+            var test = result.TextBlock.FontRuns[0];*/
 
             switch (TextJustify)
             {
@@ -335,18 +345,18 @@ namespace Mapsui.VectorTileLayers.OpenMapTiles
 
             var paint = new OMTPaint(result.Name);
 
-            if (TextColor.Stops != null)
+            if (TextColor.IsEvaluated)
             {
-                paint.SetVariableColor((context) => TextColor.Evaluate(context.Zoom));
+                paint.SetVariableColor((context) => (SKColor)TextColor.Evaluate(context));
             }
             else
             {
                 paint.SetFixColor((SKColor)TextColor.SingleVal);
             }
 
-            if (TextOpacity.Stops != null)
+            if (TextOpacity.IsEvaluated)
             {
-                paint.SetVariableOpacity((context) => TextOpacity.Evaluate(context.Zoom));
+                paint.SetVariableOpacity((context) => (float)TextOpacity.Evaluate(context));
             }
             else
             {
@@ -392,7 +402,7 @@ namespace Mapsui.VectorTileLayers.OpenMapTiles
 
             if (((string)SymbolPlacement.Evaluate(context)).ToLower() == "line" && (element.IsLine || element.IsPolygon))
             {
-                var path = new SKPath();
+                using var path = new SKPath();
                 element.AddToPath(path);
                 var spacing = (float)SymbolSpacing.Evaluate(context);
                 using (var pathMeasure = new SKPathMeasure(path))

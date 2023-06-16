@@ -5,33 +5,28 @@ using System.Collections.Generic;
 using Mapsui.VectorTileLayers.OpenMapTiles.Expressions;
 using Mapsui.VectorTileLayers.OpenMapTiles.Json;
 using Mapsui.Logging;
-using Mapsui.VectorTileLayers.OpenMapTiles.Extensions;
 
 namespace Mapsui.VectorTileLayers.OpenMapTiles.Converter
 {
-    public class StoppedFloatConverter : JsonConverter
+    public class AdvancedFloatConverter : JsonConverter
     {
         public override bool CanConvert(Type objectType)
         {
             return objectType == typeof(JsonStoppedFloat) || objectType == typeof(int);
-            //return typeof(StoppedDouble).IsAssignableFrom(objectType) || typeof(int).IsAssignableFrom(objectType);
         }
 
         public override object ReadJson(JsonReader reader,
             Type objectType, object existingValue, JsonSerializer serializer)
         {
-            JToken token = JToken.Load(reader);
+            var token = JToken.Load(reader);
             try
             {
                 switch (token.Type)
                 {
                     case JTokenType.Object:
-                        var stoppedFloat = new StoppedFloat { Stops = new List<KeyValuePair<float, float>>() };
+                        var stoppedFloat = new AdvancedFloat { Stops = new List<KeyValuePair<float, float>>() };
+                        stoppedFloat.Base = token.SelectToken("base") != null ? token.SelectToken("base").ToObject<float>() : 1f;
 
-                        if (token.SelectToken("base") != null)
-                            stoppedFloat.Base = token.SelectToken("base").ToObject<float>();
-                        else
-                            stoppedFloat.Base = 1f;
 
                         foreach (var stop in token.SelectToken("stops"))
                         {
@@ -42,10 +37,10 @@ namespace Mapsui.VectorTileLayers.OpenMapTiles.Converter
 
                         return stoppedFloat;
                     case JTokenType.Array:
-                        //Нужен обработчик вырожений, таких как match, case, step и т.п.
-                        return new StoppedFloat() { SingleVal = 2 };
+                        //Обработчик выражений, таких как match, case, step и т.п.
+                        return new AdvancedFloat() { Expression = ExpressionParser.ParseExpression(token.ToString(), typeof(float)) };
                     default:
-                        return new StoppedFloat() { SingleVal = token.Value<float>() };
+                        return new AdvancedFloat() { SingleVal = token.Value<float>() };
                 }
             }
             catch (Exception ex)

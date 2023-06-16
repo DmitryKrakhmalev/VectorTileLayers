@@ -7,6 +7,7 @@ namespace Mapsui.VectorTileLayers.OpenMapTiles.Expressions
     //Возвращает текущий уровень масштабирования
     public class ZoomExpression : Expression
     {
+        private const int DefaultZoom = 10;
         public static IExpression Parse(JArray array, ExpressionParser parser) => new ZoomExpression(); 
 
         public ZoomExpression()
@@ -15,12 +16,12 @@ namespace Mapsui.VectorTileLayers.OpenMapTiles.Expressions
 
         public override object Evaluate(EvaluationContext ctx)
         {
-            return ctx?.Zoom ?? 10;
+            return ctx?.Zoom ?? DefaultZoom;
         }
 
         public override object PossibleOutputs()
         {
-            throw new System.NotImplementedException();
+            return DefaultZoom;
         }
     }
 }

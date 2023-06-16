@@ -8,13 +8,13 @@ public class Program
     {
         Console.WriteLine("Hello, World!");
 
-        OMTStyleFileLoader.DirectoryForFiles = ".\\mbtiles";
-        var layers = LoadMapboxGL("styles/isogd/isogd.json");
+        OMTStyleFileLoader.DirectoryForFiles = "C:\\Users\\dmitriy\\Source\\Repos\\Dmitry\\VectorTileLayers\\Samples\\Sample.WPF\\mbtiles";
+        var layers = LoadMapboxGL("C:\\Users\\dmitriy\\Source\\Repos\\Dmitry\\VectorTileLayers\\Samples\\Sample.WPF\\styles\\isogd\\isogd.json");
 
-        var findLayer = layers.FirstOrDefault(x => x is OMTVectorTileLayer && x.Name == "SpecialZone");
+        var findLayer = layers.FirstOrDefault(x => x is OMTVectorTileLayer && x.Name == "Oks");
         if (findLayer == null || findLayer is not OMTVectorTileLayer vectorLayer)
             return;
-        var tileIndex = new TileIndex(1309, 1384, 11);
+        var tileIndex = new TileIndex(2638, 2766, 12);
         var tileInfo = new TileInfo() { Index = tileIndex };
         var filePath = Path.Combine(Environment.CurrentDirectory, "cache", $"{vectorLayer.Name}_as_{tileIndex.Col}_{tileIndex.Row}_{tileIndex.Level}.png");
         vectorLayer.SaveTileImage(tileInfo, filePath);

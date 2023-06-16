@@ -6,9 +6,9 @@ using System.Linq;
 namespace Mapsui.VectorTileLayers.OpenMapTiles.Expressions
 {
     /// <summary>
-    /// Class holding StoppedString data
+    /// Class holding AdvancedString data
     /// </summary>
-    public class StoppedString : IExpression
+    public class AdvancedString : IExpression
     {
         public float Base { get; set; } = 1f;
 
@@ -16,23 +16,27 @@ namespace Mapsui.VectorTileLayers.OpenMapTiles.Expressions
 
         public string SingleVal { get; set; } = string.Empty;
 
-        /// <summary>
-        /// Calculate the correct string for a stopped function
-        /// No StoppsType needed, because strings couldn't interpolated :)
-        /// </summary>
-        /// <param name="contextZoom">Zoom factor for calculation </param>
-        /// <returns>Value for this stopp respecting resolution factor and type</returns>
-        public string Evaluate(float? contextZoom)
+        public IExpression Expression;
+
+        public bool IsEvaluated => Expression != null || (Stops != null && Stops.Count > 0);
+
+       
+        public object Evaluate(EvaluationContext context)
         {
+            if (Expression != null)
+                if (Expression.Evaluate(context) is string text)
+                    return text;
+
+
             // Are there no stopps, but a single value?
             if (SingleVal != string.Empty)
                 return SingleVal;
 
             // Are there no stopps in array
-            if (Stops.Count == 0)
+            if (Stops == null || Stops.Count == 0)
                 return string.Empty;
 
-            float zoom = contextZoom ?? 0f;
+            var zoom = context.Zoom ?? 0f;
 
             var lastZoom = Stops[0].Key;
             var lastValue = Stops[0].Value;
@@ -58,11 +62,6 @@ namespace Mapsui.VectorTileLayers.OpenMapTiles.Expressions
             }
 
             return lastValue;
-        }
-
-        public object Evaluate(EvaluationContext ctx)
-        {
-            return Evaluate(ctx.Zoom);
         }
 
         public object PossibleOutputs()

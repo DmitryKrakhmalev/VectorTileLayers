@@ -47,6 +47,8 @@ namespace Mapsui.VectorTileLayers.Core
 
         public IEnumerable<string> Fields { get; private set; }
 
+        public TagsCollection Tags { get; private set; }
+
         public IDictionary<IStyle, object> RenderedGeometry => new Dictionary<IStyle, object>();
 
         public object this[string key] { get => null; set => throw new NotImplementedException(); }
@@ -67,6 +69,8 @@ namespace Mapsui.VectorTileLayers.Core
         {
             element.Scale(_scale);
             Fields = element.Tags.KeyValues.Select(x => x.Key);
+            Tags = element.Tags;
+            _context.Tags= Tags;
             Styles = new List<IStyle>();
 
             // Now process this element and check, for which style layers it is ok
@@ -79,7 +83,7 @@ namespace Mapsui.VectorTileLayers.Core
                 // Is this style layer relevant for this feature?
                 if (styleLayer.SourceLayer != element.Layer)
                     continue;
-
+                
                 // Fullfill element filter for this style layer
                 if (!styleLayer.Filter.Evaluate(element))
                     continue;
@@ -95,8 +99,8 @@ namespace Mapsui.VectorTileLayers.Core
                         ((SymbolBucket)_buckets[styleLayer]).AddElement(element, _context);
                         break;
                     case StyleType.Line:
-                        // Element is a line
-                        if (element.IsLine && element.Count > 0)
+                        // Element is a line. If polygon - draw as line style
+                        if ((element.IsLine || element.IsPolygon) && element.Count > 0)
                         {
                             if (!_buckets.ContainsKey(styleLayer))
                                 _buckets[styleLayer] = new LineBucket();
@@ -111,7 +115,7 @@ namespace Mapsui.VectorTileLayers.Core
                         break;
                     case StyleType.Fill:
                         // Element is a fill
-                        if (element.IsPolygon && element.Count > 0)
+                        if ((element.IsPolygon || element.IsLine) && element.Count > 0)
                         {
                             if (!_buckets.ContainsKey(styleLayer))
                                 _buckets[styleLayer] = new FillBucket();
@@ -135,7 +139,7 @@ namespace Mapsui.VectorTileLayers.Core
         {
             if (result == QueryResult.Succes)
             {
-                List<IStyleLayer> remove = new List<IStyleLayer>();
+                var remove = new List<IStyleLayer>();
 
                 // Delete empty buckets
                 foreach (var bucket in _buckets)

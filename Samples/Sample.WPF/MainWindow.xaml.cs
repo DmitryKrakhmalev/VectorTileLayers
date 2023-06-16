@@ -111,7 +111,7 @@ namespace Sample.WPF
         {
             InitializeComponent();
             //Директория для файлов mbtiles
-            OMTStyleFileLoader.DirectoryForFiles = ".\\mbtiles";
+            OMTStyleFileLoader.DirectoryForFiles = "C:\\Users\\dmitriy\\Source\\Repos\\Dmitry\\VectorTileLayers\\Samples\\Sample.WPF\\mbtiles";
             Logger.LogDelegate = (level, text, exception) =>
             {
                 if (level == LogLevel.Information)

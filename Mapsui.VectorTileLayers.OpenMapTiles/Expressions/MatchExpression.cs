@@ -7,10 +7,11 @@ using System.Collections.Generic;
 
 namespace Mapsui.VectorTileLayers.OpenMapTiles.Expressions
 {
-    public class StepExpression : Expression
+    public class MatchExpression : Expression
     {
         private IExpression _expression;
-        private Dictionary<int, IExpression> _values;
+        //Тип условия может быть int, string - пока просто привожу к строке
+        private Dictionary<string, object> _values;
         private object _default;
 
         public static IExpression Parse(JArray array, ExpressionParser parser)
@@ -22,23 +23,24 @@ namespace Mapsui.VectorTileLayers.OpenMapTiles.Expressions
             if (length < 5)
             {
                 parser.Error($"Expected 2 arguments, but found {length - 1} instead.");
-
                 return null;
             }
             var expression = parser.Parse(array[1], 1);
-            var values = new Dictionary<int, IExpression>();
-            var defaultValue = array[2].GetValue(parser.Expected);
-            for (var i = 3; i < length - 1; i += 2)
-            {
-                var match = int.Parse(array[i].ToString());
-                var match_expression = parser.Parse(array[i + 1], 1);
-                values[match] = match_expression;
-            }
+            var values = new Dictionary<string, object>();
 
-            return new StepExpression(expression, values, defaultValue);
+            for (var i = 2; i < length - 1; i += 2)
+            {
+                var match = array[i].ToString();
+                var elem = array[i + 1];
+                if (match == null)
+                    return null;
+                values[match] = elem.GetValue(parser.Expected);
+            }
+            var defaultValue = array.Last.GetValue(parser.Expected);
+            return new MatchExpression(expression, values, defaultValue);
         }
 
-        public StepExpression(IExpression expression, Dictionary<int, IExpression> values, object defaultValue)
+        public MatchExpression(IExpression expression, Dictionary<string, object> values, object defaultValue)
         {
             _expression = expression;
             _values = values;
@@ -47,22 +49,16 @@ namespace Mapsui.VectorTileLayers.OpenMapTiles.Expressions
 
         public override object Evaluate(EvaluationContext ctx)
         {
-            var step = int.Parse(_expression.Evaluate(ctx)?.ToString());
-            var value = _default;
-            foreach(var item in _values)
-            {
-                if (step >= item.Key)
-                {
-                    value = item.Value.Evaluate(ctx);
-                }
-            }
-            return value;
-
+            var value = _expression.Evaluate(ctx);
+            if (value == null || !_values.ContainsKey(value.ToString()))
+                return _default;
+            var matchedValue = _values[value.ToString()];
+            return matchedValue;
         }
 
         public override object PossibleOutputs()
         {
-            return null;
+            return _default;
         }
     }
 }

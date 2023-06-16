@@ -10,30 +10,24 @@ using Mapsui.Logging;
 
 namespace Mapsui.VectorTileLayers.OpenMapTiles.Converter
 {
-    public class StoppedColorConverter : JsonConverter
+    public class AdvancedColorConverter : JsonConverter
     {
-        private Random _random = new Random();
         public override bool CanConvert(Type objectType)
         {
-            return objectType == typeof(JsonStoppedString) || objectType == typeof(string);
-            //return typeof(StoppedDouble).IsAssignableFrom(objectType) || typeof(int).IsAssignableFrom(objectType);
+            return objectType == typeof(JsonStoppedColor) || objectType == typeof(string);
         }
 
         public override object ReadJson(JsonReader reader,
             Type objectType, object existingValue, JsonSerializer serializer)
         {
-            JToken token = JToken.Load(reader);
+            var token = JToken.Load(reader);
             try
             {
                 switch (token.Type)
                 {
                     case JTokenType.Object:
-                        var stoppedColor = new StoppedColor { Stops = new List<KeyValuePair<float, SKColor>>() };
-
-                        if (token.SelectToken("base") != null)
-                            stoppedColor.Base = token.SelectToken("base").ToObject<float>();
-                        else
-                            stoppedColor.Base = 1f;
+                        var stoppedColor = new AdvancedColor { Stops = new List<KeyValuePair<float, SKColor>>() };
+                        stoppedColor.Base = token.SelectToken("base") != null ? token.SelectToken("base").ToObject<float>() : 1f;
 
                         foreach (var stop in token.SelectToken("stops"))
                         {
@@ -44,10 +38,10 @@ namespace Mapsui.VectorTileLayers.OpenMapTiles.Converter
 
                         return stoppedColor;
                     case JTokenType.Array:
-                        //Нужен обработчик вырожений, таких как match, case, step и т.п.
-                        return new StoppedColor() { SingleVal = $"hsla({_random.Next(1, 251)}, 54%, 68%, 0.3)".FromString() };
+                        //Обработчик выражений, таких как match, case, step и т.п.
+                        return new AdvancedColor() { Expression = ExpressionParser.ParseExpression(token.ToString(), typeof(SKColor)) };
                     default:
-                        return new StoppedColor() { SingleVal = token.Value<string>().FromString() };
+                        return new AdvancedColor() { SingleVal = token.Value<string>().FromString() };
                 }
             }
             catch (Exception ex)

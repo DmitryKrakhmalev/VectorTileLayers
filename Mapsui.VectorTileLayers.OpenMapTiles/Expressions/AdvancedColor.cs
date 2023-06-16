@@ -7,9 +7,9 @@ using System.Collections.Generic;
 namespace Mapsui.VectorTileLayers.OpenMapTiles.Expressions
 {
     /// <summary>
-    /// Class holding StoppedColor data
+    /// Class holding AdvancedColor data
     /// </summary>
-    public class StoppedColor : IExpression
+    public class AdvancedColor : IExpression
     {
         public float Base { get; set; } = 1f;
 
@@ -17,15 +17,24 @@ namespace Mapsui.VectorTileLayers.OpenMapTiles.Expressions
 
         public SKColor? SingleVal { get; set; }
 
+        public IExpression Expression;
+
+        public bool IsEvaluated => Expression != null || (Stops != null && Stops.Count > 0);
+
         /// <summary>
-        /// Calculate the correct color for a stopped function
+        /// Calculate the correct color
         /// No Bezier type up to now
         /// </summary>
         /// <param name="contextZoom">Zoom factor for calculation </param>
         /// <param name="stoppsType">Type of calculation (interpolate, exponential, categorical)</param>
         /// <returns>Value for this stopp respecting zoom factor and type</returns>
-        public SKColor Evaluate(float? contextZoom, StopsType stoppsType = StopsType.Exponential)
+        public SKColor Evaluate(EvaluationContext context, StopsType stoppsType = StopsType.Exponential)
         {
+            //Если имеется сложное правило расчета цвета - пытаемся получить цвет обработав условие
+            if (Expression != null)
+                if (Expression.Evaluate(context) is SKColor color)
+                    return color;
+
             // Are there no stopps, but a single value?
             if (SingleVal != null)
                 return (SKColor)SingleVal;
@@ -34,7 +43,7 @@ namespace Mapsui.VectorTileLayers.OpenMapTiles.Expressions
             if (Stops.Count == 0)
                 return SKColors.Empty;
 
-            float zoom = contextZoom ?? 0f;
+            var zoom = context?.Zoom ?? 0f;
 
             var lastZoom = Stops[0].Key;
             var lastColor = Stops[0].Value;
@@ -88,7 +97,7 @@ namespace Mapsui.VectorTileLayers.OpenMapTiles.Expressions
 
         public object Evaluate(EvaluationContext ctx)
         {
-            return Evaluate(ctx.Zoom, StopsType.Exponential);
+            return Evaluate(ctx, StopsType.Exponential);
         }
 
         public object PossibleOutputs()

@@ -1,6 +1,4 @@
-﻿using Mapsui.Styles;
-
-namespace Mapsui.VectorTileLayers.Core.Primitives
+﻿namespace Mapsui.VectorTileLayers.Core.Primitives
 {
     /// <summary>
     /// Context for which the style should be evaluated

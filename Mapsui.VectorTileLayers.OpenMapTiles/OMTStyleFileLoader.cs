@@ -101,8 +101,8 @@ namespace Mapsui.VectorTileLayers.OpenMapTiles
         /// </summary>
         private static List<ILayer> ExtractLayers(JsonStyleFile jsonStyle, Dictionary<string, JsonSource> sources, OMTSpriteAtlas spriteAtlas)
         {
-            List<ILayer> tileLayers = new List<ILayer>();
-            List<string> usedSources = new List<string>();
+            var tileLayers = new List<ILayer>();
+            var usedSources = new List<string>();
 
             // Get all sources in correct order
             foreach (var vectorTileStyle in jsonStyle.StyleLayers)
@@ -239,6 +239,7 @@ namespace Mapsui.VectorTileLayers.OpenMapTiles
             catch (Exception ex)
             {
                 Logger.Log(LogLevel.Error, $"Ошибка в момент создания тайлового слоя: {ex.Message}", ex);
+                throw;
             }
 
             if (jsonSource == null)
@@ -261,8 +262,8 @@ namespace Mapsui.VectorTileLayers.OpenMapTiles
 
             var vectorStyleLayers = ExtractStyles(tileSource.Name, jsonStyle.StyleLayers, spriteAtlas);
 
-            int minMaxZoom = 0;
-            int maxMinZoom = 30;
+            var minMaxZoom = 0;
+            var maxMinZoom = 30;
 
             foreach (var styleLayer in vectorStyleLayers)
             {
@@ -346,7 +347,7 @@ namespace Mapsui.VectorTileLayers.OpenMapTiles
                 if (jsonStyleLayer.NativeFilter != null)
                     filter = FilterConverter.ConvertFilter(jsonStyleLayer.NativeFilter);
 
-                OMTVectorTileStyle styleLayer = new OMTVectorTileStyle
+                var styleLayer = new OMTVectorTileStyle
                 {
                     Id = jsonStyleLayer.Id,
                     MinZoom = (int)(jsonStyleLayer.MinZoom ?? 0),

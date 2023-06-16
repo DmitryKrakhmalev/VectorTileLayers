@@ -3,7 +3,6 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
-using System.Linq.Expressions;
 using System.Text;
 
 namespace Mapsui.VectorTileLayers.OpenMapTiles.Expressions
@@ -12,19 +11,19 @@ namespace Mapsui.VectorTileLayers.OpenMapTiles.Expressions
     {
         Dictionary<string, Func<JArray, ExpressionParser, IExpression>> expressionRegistry = new Dictionary<string, Func<JArray, ExpressionParser, IExpression>>
         {
-            //new KeyValuePair<string, Func<JArray, ExpressionParser, IExpression>>("==", parseComparison),
-            //new KeyValuePair<string, Func<string, Expression>>("!=", parseComparison),
-            //new KeyValuePair<string, Func<string, Expression>>(">", parseComparison),
-            //new KeyValuePair<string, Func<string, Expression>>("<", parseComparison),
-            //new KeyValuePair<string, Func<string, Expression>>(">=", parseComparison),
-            //new KeyValuePair<string, Func<string, Expression>>("<=", parseComparison),
+            { "==", ComparisonExpression.Parse },
+            { "!=", ComparisonExpression.Parse },
+            { ">", ComparisonExpression.Parse },
+            { "<", ComparisonExpression.Parse },
+            { ">=", ComparisonExpression.Parse },
+            { "<=", ComparisonExpression.Parse },
             //new KeyValuePair<string, Func<string, Expression>>("all", All::parse),
             //new KeyValuePair<string, Func<string, Expression>>("any", Any::parse),
             //new KeyValuePair<string, Func<string, Expression>>("array", Assertion::parse),
             { "at", AtExpression.Parse },
             //new KeyValuePair<string, Func<string, Expression>>("in", In::parse),
             //new KeyValuePair<string, Func<string, Expression>>("boolean", Assertion::parse),
-            //new KeyValuePair<string, Func<string, Expression>>("case", Case::parse),
+            { "case", CaseExpression.Parse },
             //new KeyValuePair<string, Func<string, Expression>>("coalesce", Coalesce::parse),
             //new KeyValuePair<string, Func<string, Expression>>("collator", CollatorExpression::parse),
             //new KeyValuePair<string, Func<string, Expression>>("format", FormatExpression::parse),
@@ -33,7 +32,7 @@ namespace Mapsui.VectorTileLayers.OpenMapTiles.Expressions
             { "length", LengthExpression.Parse },
             { "let", LetExpression.Parse },
             //new KeyValuePair<string, Func<string, Expression>>("literal", Literal::parse),
-            //new KeyValuePair<string, Func<string, Expression>>("match", parseMatch),
+            { "match", MatchExpression.Parse },
             //new KeyValuePair<string, Func<string, Expression>>("number", Assertion::parse),
             //new KeyValuePair<string, Func<string, Expression>>("number-format", NumberFormat::parse),
             //new KeyValuePair<string, Func<string, Expression>>("object", Assertion::parse),
@@ -126,6 +125,7 @@ namespace Mapsui.VectorTileLayers.OpenMapTiles.Expressions
                 }
                 else
                 {
+                    Console.WriteLine($"Not found parser for expression {op}");
                     //result = parseCompoundExpression(op, array, this);
                 }
             }
@@ -190,7 +190,7 @@ namespace Mapsui.VectorTileLayers.OpenMapTiles.Expressions
 
         public string CombinedErrors()
         {
-            StringBuilder combinedError = new StringBuilder();
+            var combinedError = new StringBuilder();
 
             foreach (var error in Errors)
             {

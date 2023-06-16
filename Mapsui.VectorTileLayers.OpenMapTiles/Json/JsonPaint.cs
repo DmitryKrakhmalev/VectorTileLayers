@@ -7,68 +7,68 @@ namespace Mapsui.VectorTileLayers.OpenMapTiles.Json
 {
     public class JsonPaint
     {
-        [JsonConverter(typeof(StoppedColorConverter))]
+        [JsonConverter(typeof(AdvancedColorConverter))]
         [JsonProperty("background-color")]
-        public StoppedColor BackgroundColor { get; set; }
+        public AdvancedColor BackgroundColor { get; set; }
 
-        [JsonConverter(typeof(StoppedStringConverter))]
+        [JsonConverter(typeof(AdvancedStringConverter))]
         [JsonProperty("background-pattern")]
-        public StoppedString BackgroundPattern { get; set; }
+        public AdvancedString BackgroundPattern { get; set; }
 
-        [JsonConverter(typeof(StoppedFloatConverter))]
+        [JsonConverter(typeof(AdvancedFloatConverter))]
         [JsonProperty("background-opacity")]
-        public StoppedFloat BackgroundOpacity { get; set; }
+        public AdvancedFloat BackgroundOpacity { get; set; }
 
-        [JsonConverter(typeof(StoppedColorConverter))]
+        [JsonConverter(typeof(AdvancedColorConverter))]
         [JsonProperty("fill-color")]
-        public StoppedColor FillColor { get; set; }
+        public AdvancedColor FillColor { get; set; }
 
-        [JsonConverter(typeof(StoppedFloatConverter))]
+        [JsonConverter(typeof(AdvancedFloatConverter))]
         [JsonProperty("fill-opacity")]
-        public StoppedFloat FillOpacity { get; set; }
+        public AdvancedFloat FillOpacity { get; set; }
 
-        [JsonConverter(typeof(StoppedColorConverter))]
+        [JsonConverter(typeof(AdvancedColorConverter))]
         [JsonProperty("line-color")]
-        public StoppedColor LineColor { get; set; }
+        public AdvancedColor LineColor { get; set; }
 
-        [JsonConverter(typeof(StoppedFloatConverter))]
+        [JsonConverter(typeof(AdvancedFloatConverter))]
         [JsonProperty("line-width")]
-        public StoppedFloat LineWidth { get; set; }
+        public AdvancedFloat LineWidth { get; set; }
 
         [JsonProperty("fill-translate")]
         public object FillTranslate { get; set; }
 
-        [JsonConverter(typeof(StoppedStringConverter))]
+        [JsonConverter(typeof(AdvancedStringConverter))]
         [JsonProperty("fill-pattern")]
-        public StoppedString FillPattern { get; set; }
+        public AdvancedString FillPattern { get; set; }
 
-        [JsonConverter(typeof(StoppedColorConverter))]
+        [JsonConverter(typeof(AdvancedColorConverter))]
         [JsonProperty("fill-outline-color")]
-        public StoppedColor FillOutlineColor { get; set; }
+        public AdvancedColor FillOutlineColor { get; set; }
 
         [JsonConverter(typeof(StoppedFloatArrayConverter))]
         [JsonProperty("line-dasharray")]
         public StoppedFloatArray LineDashArray { get; set; }
 
-        [JsonConverter(typeof(StoppedFloatConverter))]
+        [JsonConverter(typeof(AdvancedFloatConverter))]
         [JsonProperty("line-opacity")]
-        public StoppedFloat LineOpacity { get; set; }
+        public AdvancedFloat LineOpacity { get; set; }
 
-        [JsonConverter(typeof(StoppedColorConverter))]
+        [JsonConverter(typeof(AdvancedColorConverter))]
         [JsonProperty("text-color")]
-        public StoppedColor TextColor { get; set; }
+        public AdvancedColor TextColor { get; set; }
 
-        [JsonConverter(typeof(StoppedFloatConverter))]
+        [JsonConverter(typeof(AdvancedFloatConverter))]
         [JsonProperty("text-halo-width")]
-        public StoppedFloat TextHaloWidth { get; set; }
+        public AdvancedFloat TextHaloWidth { get; set; }
 
-        [JsonConverter(typeof(StoppedColorConverter))]
+        [JsonConverter(typeof(AdvancedColorConverter))]
         [JsonProperty("text-halo-color")]
-        public StoppedColor TextHaloColor { get; set; }
+        public AdvancedColor TextHaloColor { get; set; }
 
-        [JsonConverter(typeof(StoppedFloatConverter))]
+        [JsonConverter(typeof(AdvancedFloatConverter))]
         [JsonProperty("text-halo-blur")]
-        public StoppedFloat TextHaloBlur { get; set; }
+        public AdvancedFloat TextHaloBlur { get; set; }
 
         [JsonConverter(typeof(StoppedBooleanConverter))]
         [JsonProperty("fill-antialias")]
@@ -86,59 +86,59 @@ namespace Mapsui.VectorTileLayers.OpenMapTiles.Json
         [JsonProperty("line-translate")]
         public IList<int> LineTranslate { get; set; }
 
-        [JsonConverter(typeof(StoppedFloatConverter))]
+        [JsonConverter(typeof(AdvancedFloatConverter))]
         [JsonProperty("icon-halo-blur")]
-        public StoppedFloat IconHaloBlur { get; set; }
+        public AdvancedFloat IconHaloBlur { get; set; }
 
-        [JsonConverter(typeof(StoppedColorConverter))]
+        [JsonConverter(typeof(AdvancedColorConverter))]
         [JsonProperty("icon-halo-color")]
-        public StoppedColor IconHaloColor { get; set; }
+        public AdvancedColor IconHaloColor { get; set; }
 
-        [JsonConverter(typeof(StoppedFloatConverter))]
+        [JsonConverter(typeof(AdvancedFloatConverter))]
         [JsonProperty("icon-halo-width")]
-        public StoppedFloat IconHaloWidth { get; set; }
+        public AdvancedFloat IconHaloWidth { get; set; }
 
-        [JsonConverter(typeof(StoppedFloatConverter))]
+        [JsonConverter(typeof(AdvancedFloatConverter))]
         [JsonProperty("text-opacity")]
-        public StoppedFloat TextOpacity { get; set; }
+        public AdvancedFloat TextOpacity { get; set; }
 
-        [JsonConverter(typeof(StoppedColorConverter))]
+        [JsonConverter(typeof(AdvancedColorConverter))]
         [JsonProperty("icon-color")]
-        public StoppedColor IconColor { get; set; }
+        public AdvancedColor IconColor { get; set; }
 
         [JsonProperty("text-translate")]
         public IList<int> TextTranslate { get; set; }
 
-        [JsonConverter(typeof(StoppedFloatConverter))]
+        [JsonConverter(typeof(AdvancedFloatConverter))]
         [JsonProperty("icon-opacity")]
-        public StoppedFloat IconOpacity { get; set; }
+        public AdvancedFloat IconOpacity { get; set; }
 
-        [JsonConverter(typeof(StoppedFloatConverter))]
+        [JsonConverter(typeof(AdvancedFloatConverter))]
         [JsonProperty("raster-opacity")]
-        public StoppedFloat RasterOpacity { get; set; }
+        public AdvancedFloat RasterOpacity { get; set; }
 
-        [JsonConverter(typeof(StoppedFloatConverter))]
+        [JsonConverter(typeof(AdvancedFloatConverter))]
         [JsonProperty("raster-hue-rotate")]
-        public StoppedFloat RasterHueRotate { get; set; }
+        public AdvancedFloat RasterHueRotate { get; set; }
 
-        [JsonConverter(typeof(StoppedFloatConverter))]
+        [JsonConverter(typeof(AdvancedFloatConverter))]
         [JsonProperty("raster-brightness-min")]
-        public StoppedFloat RasterBrightnessMin { get; set; }
+        public AdvancedFloat RasterBrightnessMin { get; set; }
 
-        [JsonConverter(typeof(StoppedFloatConverter))]
+        [JsonConverter(typeof(AdvancedFloatConverter))]
         [JsonProperty("raster-brightness-max")]
-        public StoppedFloat RasterBrightnessMax { get; set; }
+        public AdvancedFloat RasterBrightnessMax { get; set; }
 
-        [JsonConverter(typeof(StoppedFloatConverter))]
+        [JsonConverter(typeof(AdvancedFloatConverter))]
         [JsonProperty("raster-saturation")]
-        public StoppedFloat RasterSaturation { get; set; }
+        public AdvancedFloat RasterSaturation { get; set; }
 
-        [JsonConverter(typeof(StoppedFloatConverter))]
+        [JsonConverter(typeof(AdvancedFloatConverter))]
         [JsonProperty("raster-contrast")]
-        public StoppedFloat RasterContrast { get; set; }
+        public AdvancedFloat RasterContrast { get; set; }
 
-        [JsonConverter(typeof(StoppedFloatConverter))]
+        [JsonConverter(typeof(AdvancedFloatConverter))]
         [JsonProperty("raster-fade-duration")]
-        public StoppedFloat RasterFadeDuration { get; set; }
+        public AdvancedFloat RasterFadeDuration { get; set; }
     }
 }

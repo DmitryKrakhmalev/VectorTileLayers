@@ -1,5 +1,4 @@
-﻿using Mapsui.VectorTileLayers.Core.Enums;
-using Mapsui.VectorTileLayers.Core.Interfaces;
+﻿using Mapsui.VectorTileLayers.Core.Interfaces;
 using SkiaSharp;
 
 namespace Mapsui.VectorTileLayers.Core.Primitives
@@ -15,8 +14,9 @@ namespace Mapsui.VectorTileLayers.Core.Primitives
 
         public void AddElement(VectorElement element)
         {
-            if (element.Type == GeometryType.LineString)
-                element.AddToPath(Path);
+            //Polygons can also be displayed with the line style - disable check
+            //if (element.Type == GeometryType.LineString)
+            element.AddToPath(Path);
         }
 
         public void SimplifyPath()

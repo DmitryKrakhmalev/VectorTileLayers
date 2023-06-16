@@ -5,7 +5,6 @@ using Mapsui.VectorTileLayers.OpenMapTiles.Json;
 using SkiaSharp;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
-using NetTopologySuite.Algorithm;
 
 namespace Mapsui.VectorTileLayers.OpenMapTiles.Converter
 {
@@ -26,9 +25,9 @@ namespace Mapsui.VectorTileLayers.OpenMapTiles.Converter
             //   The color with which the background will be drawn.
             if (paint.BackgroundColor != null)
             {
-                if (paint.BackgroundColor.Stops != null)
+                if (paint.BackgroundColor.IsEvaluated)
                 {
-                    brush.SetVariableColor((context) => paint.BackgroundColor.Evaluate(context.Zoom));
+                    brush.SetVariableColor((context) => (SKColor)paint.BackgroundColor.Evaluate(context));
                 }
                 else
                 {
@@ -53,7 +52,7 @@ namespace Mapsui.VectorTileLayers.OpenMapTiles.Converter
                 {
                     brush.SetVariableShader((context) =>
                     {
-                        var name = ReplaceFields(paint.BackgroundPattern.Evaluate(context.Zoom), null);
+                        var name = ReplaceFields((string)paint.BackgroundPattern.Evaluate(context), null);
 
                         var sprite = spriteAtlas.GetSprite(name);
                         if (sprite != null && sprite.Atlas >= 0)
@@ -76,9 +75,9 @@ namespace Mapsui.VectorTileLayers.OpenMapTiles.Converter
             //   The opacity at which the background will be drawn.
             if (paint?.BackgroundOpacity != null)
             {
-                if (paint.BackgroundOpacity.Stops != null)
+                if (paint.BackgroundOpacity.IsEvaluated)
                 {
-                    brush.SetVariableOpacity((context) => paint.BackgroundOpacity.Evaluate(context.Zoom));
+                    brush.SetVariableOpacity((context) => (float)paint.BackgroundOpacity.Evaluate(context));
                 }
                 else
                 {
@@ -102,9 +101,9 @@ namespace Mapsui.VectorTileLayers.OpenMapTiles.Converter
             //   The opacity at which the image will be drawn.
             if (paint?.RasterOpacity != null)
             {
-                if (paint.RasterOpacity.Stops != null)
+                if (paint.RasterOpacity.IsEvaluated)
                 {
-                    brush.SetVariableOpacity((context) => paint.RasterOpacity.Evaluate(context.Zoom));
+                    brush.SetVariableOpacity((context) => (float)paint.RasterOpacity.Evaluate(context));
                 }
                 else
                 {
@@ -171,10 +170,10 @@ namespace Mapsui.VectorTileLayers.OpenMapTiles.Converter
             //   opacity of the 1px stroke, if it is used.
             if (paint.FillColor != null)
             {
-                if (paint.FillColor.Stops != null)
+                if (paint.FillColor.IsEvaluated)
                 {
-                    area.SetVariableColor((context) => jsonStyleLayer.Paint.FillColor.Evaluate(context.Zoom));
-                    line.SetVariableColor((context) => jsonStyleLayer.Paint.FillColor.Evaluate(context.Zoom));
+                    area.SetVariableColor((context) => (SKColor)jsonStyleLayer.Paint.FillColor.Evaluate(context));
+                    line.SetVariableColor((context) => (SKColor)jsonStyleLayer.Paint.FillColor.Evaluate(context));
                 }
                 else
                 {
@@ -189,10 +188,10 @@ namespace Mapsui.VectorTileLayers.OpenMapTiles.Converter
             //   value will also affect the 1px stroke around the fill, if the stroke is used.
             if (paint.FillOpacity != null)
             {
-                if (paint.FillOpacity.Stops != null)
+                if (paint.FillOpacity.IsEvaluated)
                 {
-                    area.SetVariableOpacity((context) => jsonStyleLayer.Paint.FillOpacity.Evaluate(context.Zoom));
-                    line.SetVariableOpacity((context) => jsonStyleLayer.Paint.FillOpacity.Evaluate(context.Zoom));
+                    area.SetVariableOpacity((context) => (float)jsonStyleLayer.Paint.FillOpacity.Evaluate(context));
+                    line.SetVariableOpacity((context) => (float)jsonStyleLayer.Paint.FillOpacity.Evaluate(context));
                 }
                 else
                 {
@@ -224,9 +223,9 @@ namespace Mapsui.VectorTileLayers.OpenMapTiles.Converter
             if (paint.FillOutlineColor != null)
             {
                 hasOutline = true;
-                if (paint.FillOutlineColor.Stops != null)
+                if (paint.FillOutlineColor.IsEvaluated)
                 {
-                    line.SetVariableColor((context) => jsonStyleLayer.Paint.FillOutlineColor.Evaluate(context.Zoom));
+                    line.SetVariableColor((context) => (SKColor)jsonStyleLayer.Paint.FillOutlineColor.Evaluate(context));
                 }
                 else
                 {
@@ -280,7 +279,7 @@ namespace Mapsui.VectorTileLayers.OpenMapTiles.Converter
                 {
                     area.SetVariableShader((context) =>
                     {
-                        var name = ReplaceFields(jsonStyleLayer.Paint.FillPattern.Evaluate(context.Zoom), context.Tags);
+                        var name = ReplaceFields((string)jsonStyleLayer.Paint.FillPattern.Evaluate(context), context.Tags);
 
                         var sprite = spriteAtlas.GetSprite(name);
                         if (sprite != null && sprite.Atlas >= 0)
@@ -374,9 +373,9 @@ namespace Mapsui.VectorTileLayers.OpenMapTiles.Converter
             //   The color with which the line will be drawn.
             if (paint?.LineColor != null)
             {
-                if (paint.LineColor.Stops != null)
+                if (paint.LineColor.IsEvaluated)
                 {
-                    line.SetVariableColor((context) => jsonStyleLayer.Paint.LineColor.Evaluate(context.Zoom));
+                    line.SetVariableColor((context) => (SKColor)jsonStyleLayer.Paint.LineColor.Evaluate(context));
                 }
                 else
                 {
@@ -389,9 +388,9 @@ namespace Mapsui.VectorTileLayers.OpenMapTiles.Converter
             //   Stroke thickness.
             if (paint?.LineWidth != null)
             {
-                if (paint.LineWidth.Stops != null)
+                if (paint.LineWidth.IsEvaluated)
                 {
-                    line.SetVariableStrokeWidth((context) => jsonStyleLayer.Paint.LineWidth.Evaluate(context.Zoom));
+                    line.SetVariableStrokeWidth((context) => (float)jsonStyleLayer.Paint.LineWidth.Evaluate(context));
                 }
                 else
                 {
@@ -404,9 +403,9 @@ namespace Mapsui.VectorTileLayers.OpenMapTiles.Converter
             //   The opacity at which the line will be drawn.
             if (paint?.LineOpacity != null)
             {
-                if (paint.LineOpacity.Stops != null)
+                if (paint.LineOpacity.IsEvaluated)
                 {
-                    line.SetVariableOpacity((context) => jsonStyleLayer.Paint.LineOpacity.Evaluate(context.Zoom));
+                    line.SetVariableOpacity((context) => (float)jsonStyleLayer.Paint.LineOpacity.Evaluate(context));
                 }
                 else
                 {
@@ -757,8 +756,7 @@ namespace Mapsui.VectorTileLayers.OpenMapTiles.Converter
             //   See https://docs.mapbox.com/mapbox-gl-js/style-spec/layers/#layout-symbol-text-field
             if (layout?.TextField != null)
             {
-                //По хорошему нужен Evaluate от контекста, но не понятно как его получить
-                symbolStyler.TextField = layout.TextField.ToString();
+                symbolStyler.TextField = layout.TextField;
             }
 
             // text-font

@@ -40,7 +40,7 @@ namespace Mapsui.VectorTileLayers.Core.Renderer
                 var index = vectorTileFeature.TileInfo.Index;
 
                 var scale = CreateMatrix(canvas, viewport, extent);
-                var context = new EvaluationContext((float)viewport.Resolution.ToZoomLevel(), 1f / scale, (float)viewport.Rotation);
+                var context = new EvaluationContext((float)viewport.Resolution.ToZoomLevel(), 1f / scale, (float)viewport.Rotation, vectorTileFeature.Tags);
 
                 canvas.Save();
 
@@ -54,7 +54,6 @@ namespace Mapsui.VectorTileLayers.Core.Renderer
             catch (Exception ex)
             {
                 Logger.Log(LogLevel.Error, ex.Message, ex);
-
                 return false;
             }
         }
