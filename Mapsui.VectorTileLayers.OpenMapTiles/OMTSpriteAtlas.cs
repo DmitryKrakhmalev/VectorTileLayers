@@ -25,9 +25,8 @@ namespace Mapsui.VectorTileLayers.OpenMapTiles
 
             // TODO: Remove this, if PixelRatio is respected in Mapsui
             // First check for @2x
-            var nameJson = source + ".json"; // "@2x.json";
-            var nameAtlas = source + ".png"; // "@2x.png";
-
+            var nameJson = source + "@2x.json";
+            var nameAtlas = source + "@2x.png";
             try
             {
                 (streamJson, streamAtlas) = GetStreams(nameJson, nameAtlas, getLocalContent);
@@ -179,7 +178,7 @@ namespace Mapsui.VectorTileLayers.OpenMapTiles
                 if (streamJson == null)
                     throw new FileNotFoundException($"File '{nameJson}' not found");
 
-                streamAtlas = getLocalContent(LocalContentType.File, nameJson);
+                streamAtlas = getLocalContent(LocalContentType.File, nameAtlas);
 
                 if (streamAtlas == null)
                     throw new FileNotFoundException($"File '{nameAtlas}' not found");
