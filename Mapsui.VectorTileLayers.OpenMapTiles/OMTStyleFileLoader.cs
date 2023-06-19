@@ -238,7 +238,7 @@ namespace Mapsui.VectorTileLayers.OpenMapTiles
             }
             catch (Exception ex)
             {
-                Logger.Log(LogLevel.Error, $"Ошибка в момент создания тайлового слоя: {ex.Message}", ex);
+                Logger.Log(LogLevel.Error, $"Error at the time of creating the tile layer: {ex.Message}", ex);
                 throw;
             }
 

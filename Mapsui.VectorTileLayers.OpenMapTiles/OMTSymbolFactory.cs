@@ -155,7 +155,6 @@ namespace Mapsui.VectorTileLayers.OpenMapTiles
         /// </summary>
         public void Update()
         {
-            //Отключил. Логика не понятна
             /*if (TextField.Evaluate(null) == null)
             {
                 return;

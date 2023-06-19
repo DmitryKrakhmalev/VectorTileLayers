@@ -119,6 +119,7 @@ namespace Mapsui.VectorTileLayers.OpenMapTiles
                 return Enumerable.Empty<IFeature>();
             }
 
+            UpdateMemoryCacheMinAndMax();
 
             var zoomLevel = (int)resolution.ToZoomLevel();
 
@@ -208,6 +209,7 @@ namespace Mapsui.VectorTileLayers.OpenMapTiles
         /// <inheritdoc />
         public void ClearCache()
         {
+            ((BruTile.Cache.MemoryCache<IFeature>)MemoryCache).Clear();
         }
 
         /// <inheritdoc />
@@ -225,6 +227,11 @@ namespace Mapsui.VectorTileLayers.OpenMapTiles
 
         protected override void Dispose(bool disposing)
         {
+            if (disposing)
+            {
+                ((BruTile.Cache.MemoryCache<IFeature>)MemoryCache).Dispose();
+            }
+
             base.Dispose(disposing);
         }
 
@@ -242,6 +249,15 @@ namespace Mapsui.VectorTileLayers.OpenMapTiles
             }
         }
 
+        private void UpdateMemoryCacheMinAndMax()
+        {
+            if (_minExtraTiles < 0 || _maxExtraTiles < 0) return;
+            if (_numberTilesNeeded == _tileFetchDispatcher.NumberTilesNeeded) return;
+
+            _numberTilesNeeded = _tileFetchDispatcher.NumberTilesNeeded;
+            ((BruTile.Cache.MemoryCache<IFeature>)MemoryCache).MinTiles = _numberTilesNeeded + _minExtraTiles;
+            ((BruTile.Cache.MemoryCache<IFeature>)MemoryCache).MaxTiles = _numberTilesNeeded + _maxExtraTiles;
+        }
 
         private void TileFetchDispatcherOnDataChanged(object sender, DataChangedEventArgs e)
         {
@@ -253,14 +269,25 @@ namespace Mapsui.VectorTileLayers.OpenMapTiles
             if (_tileSource == null)
                 return null;
 
+            var vectorTileFeature = (VectorTileFeature)MemoryCache.Find(tileInfo.Index);
+
+            if (vectorTileFeature != null)
+                return vectorTileFeature;
+
             // We don't create tiles with zoom higher than TileSource could provide
             //if (tileInfo.Index.Level > _tileSource.Schema.Resolutions.Count - 1)
             //    return null;
 
             // Get binary data from tile source as byte[]
             var (tileData, overzoom) = GetTileData(tileInfo);
-            //Пропускаем добавление в MemoryCache
-            return tileData != null ? ToVectorTile(tileInfo, overzoom, ref tileData) : null;
+
+            // We find data in the tile source for this tile, perhaps on lower levels
+            if (tileData != null) // && overzoom == Overzoom.None)
+                vectorTileFeature = ToVectorTile(tileInfo, overzoom, ref tileData);
+
+            MemoryCache.Add(tileInfo.Index, vectorTileFeature);
+
+            return vectorTileFeature;
         }
 
         /// <summary>

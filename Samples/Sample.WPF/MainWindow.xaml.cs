@@ -34,18 +34,10 @@ namespace Sample.WPF
         {
             Initialize();
             var map = CreateMap();
-            //Для удобства подключу подложку OpenStreetMap
-            map.Layers.Add(Mapsui.Tiling.OpenStreetMap.CreateTileLayer());
-
-            //Подгружаем источники из MapBox стиля
-            LoadMapboxGL("styles/isogd/isogd.json");
-            //LoadMapboxGL("styles/isogd/gp.json");
-
-            //Заполнить список задействованными стилями
+            LoadMapboxGL("switzerland_zurich.mbtiles");
             PrepareListView();
-
-            //Примерно позиционируемся
-            map.Home = m => m.CenterOnAndZoomTo(new MPoint(5589347.7922078343, 7029295.9187208461), m.Resolutions[7]);
+            //Navigate
+            map.Home = m => m.CenterOnAndZoomTo(new MPoint(825890.75, 5423194.65), m.Resolutions[7]);
         }
 
         private void PrepareListView()
@@ -175,11 +167,10 @@ namespace Sample.WPF
                 Resolution = ZoomExtensions.ToResolution(9),
                 Rotation = 0
             };
-            //Нужно как то обновить данные по интересующей территории
             mapControl.Map.RefreshData(new Mapsui.Layers.FetchInfo(viewport.ToSection()));
             mapControl.RefreshGraphics();
             mapControl.ForceUpdate();
-            var layers = mapControl.Map.Layers.FindLayer("SpecialZone").ToArray();
+            var layers = mapControl.Map.Layers.Where(x => x is OMTVectorTileLayer).ToArray();
 
             using var stream = mapControl.Renderer.RenderToBitmapStream(viewport, layers);
             if (stream != null)
@@ -188,15 +179,13 @@ namespace Sample.WPF
                 var outDirectory = Path.Combine(Environment.CurrentDirectory, "cache");
                 if (!Directory.Exists(outDirectory))
                     Directory.CreateDirectory(outDirectory);
-                using var file = File.Create(Path.Combine(outDirectory, "SpecialZone.png"));
+                using var file = File.Create(Path.Combine(outDirectory, "viewport.png"));
                 stream.CopyTo(file);
             }
         }
         private void BtnCustomSave2_Click(object sender, RoutedEventArgs e)
         {
-            //Еще одна попытка
-            var layers = mapControl.Map.Layers.FindLayer("SpecialZone").ToArray();
-            var vectorLayer = layers[0] as OMTVectorTileLayer;
+            var vectorLayer = (OMTVectorTileLayer)mapControl.Map.Layers.FirstOrDefault(x => x is OMTVectorTileLayer);
             var tileIndex = new TileIndex(1309, 1384, 11);
             var filePath = Path.Combine(Environment.CurrentDirectory, "cache", $"{vectorLayer.Name}_{tileIndex.Col}_{tileIndex.Row}_{tileIndex.Level}.png");
             var tileInfo = new TileInfo() { Index = tileIndex};
@@ -224,10 +213,32 @@ namespace Sample.WPF
         }
         public void LoadMapboxGL(string stylePath)
         {
-            using var stream = new FileStream(stylePath, FileMode.Open);
+            CheckForMBTilesFile(stylePath, OMTStyleFileLoader.DirectoryForFiles);
+            var stream = EmbeddedResourceLoader.Load("styles.osm-liberty.json", GetType()) ?? throw new FileNotFoundException($"styles.osm - liberty.json not found");
             var layers = new OpenMapTilesLayer(stream, GetLocalContent);
             foreach (var layer in layers)
                 mapControl.Map.Layers.Add(layer);
+        }
+
+        private static string CheckForMBTilesFile(string filename, string dataDir)
+        {
+            filename = Path.Combine(dataDir, filename);
+            if (!File.Exists(filename))
+            {
+                var assembly = Assembly.GetExecutingAssembly();
+                var resourceNames = assembly.GetManifestResourceNames();
+                var resourceName = resourceNames.FirstOrDefault(s => s.ToLower().EndsWith(filename) == true);
+                if (resourceName != null)
+                {
+                    var stream = assembly.GetManifestResourceStream(resourceName);
+                    using (var file = new FileStream(filename, FileMode.Create, FileAccess.Write))
+                    {
+                        stream.CopyTo(file);
+                    }
+                }
+            }
+
+            return filename;
         }
 
         public Stream GetLocalContent(LocalContentType type, string name)

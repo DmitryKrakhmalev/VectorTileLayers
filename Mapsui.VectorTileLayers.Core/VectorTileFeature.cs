@@ -99,7 +99,7 @@ namespace Mapsui.VectorTileLayers.Core
                         ((SymbolBucket)_buckets[styleLayer]).AddElement(element, _context);
                         break;
                     case StyleType.Line:
-                        // Element is a line. If polygon - draw as line style
+                        // Element is a line or polygon. If element is a polygon - draw as line style
                         if ((element.IsLine || element.IsPolygon) && element.Count > 0)
                         {
                             if (!_buckets.ContainsKey(styleLayer))

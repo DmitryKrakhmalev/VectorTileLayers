@@ -57,9 +57,6 @@ project.lock.json
 
 Samples/Mapsui.Samples.Droid/Resources/Resource.Designer.cs
 Samples/Mapsui.Samples.Forms/Mapsui.Samples.Forms.Android/Resources/Resource.designer.cs
-
-Samples/Sample.WPF/mbtiles/*.mbtiles
-
 /Mapsui.UI.Uno/MapControl.cs
 /Mapsui.UI.Uno/ExtensionMethods/PointExtensions.cs
 /Mapsui.UI.Uno/Shared/Utils/FlingTracker.cs
@@ -79,4 +76,3 @@ AppPackages/
 .DS_Store
 
 /Output-Build.txt
-/Samples/VectorTileTest/mbtiles/

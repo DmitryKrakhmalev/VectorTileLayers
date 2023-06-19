@@ -21,6 +21,12 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Content Include="mbtiles\monaco.mbtiles">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="mbtiles\switzerland_zurich.mbtiles">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <EmbeddedResource Include="styles\fonts\Roboto Medium.ttf" />
     <EmbeddedResource Include="styles\fonts\Roboto Regular.ttf" />
     <EmbeddedResource Include="styles\fonts\Roboto Condensed Italic.ttf" />
@@ -52,39 +58,6 @@
   <ItemGroup>
     <ProjectReference Include="..\..\Mapsui.VectorTileLayers.Core\Mapsui.VectorTileLayers.Core.csproj" />
     <ProjectReference Include="..\..\Mapsui.VectorTileLayers.OpenMapTiles\Mapsui.VectorTileLayers.OpenMapTiles.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Update="mbtiles\gp.mbtiles">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="mbtiles\LandPlot.mbtiles">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="mbtiles\SpecialZone.mbtiles">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="mbtiles\terzone.mbtiles">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="styles\isogd\gp.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="styles\isogd\isogd.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="styles\isogd\sprites%402x.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="styles\isogd\sprites%402x.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="styles\isogd\sprites.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="styles\isogd\sprites.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
   </ItemGroup>
 
 </Project>

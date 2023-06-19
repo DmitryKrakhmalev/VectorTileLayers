@@ -25,7 +25,7 @@ namespace Mapsui.VectorTileLayers.OpenMapTiles.Extensions
         /// <returns>Converted Skia SKColor</returns>
         public static SKColor FromString(this string from)
         {
-            SKColor result = SKColors.Empty;
+            var result = SKColors.Empty;
 
             from = from.Trim().ToLower();
 
@@ -345,10 +345,10 @@ namespace Mapsui.VectorTileLayers.OpenMapTiles.Extensions
 
         public static string Replace(this string str, string oldValue, string newValue, StringComparison comparison)
         {
-            StringBuilder sb = new StringBuilder();
+            var sb = new StringBuilder();
 
-            int previousIndex = 0;
-            int index = str.IndexOf(oldValue, comparison);
+            var previousIndex = 0;
+            var index = str.IndexOf(oldValue, comparison);
             while (index != -1)
             {
                 sb.Append(str.Substring(previousIndex, index - previousIndex));

@@ -1,6 +1,8 @@
-﻿using Mapsui.Extensions;
+﻿using Mapsui;
+using Mapsui.Extensions;
 using Mapsui.Logging;
 using Mapsui.Rendering.Skia.SkiaWidgets;
+using Mapsui.UI.Forms;
 using Mapsui.Utilities;
 using Mapsui.VectorTileLayers.Core.Enums;
 using Mapsui.VectorTileLayers.Core.Extensions;
@@ -67,9 +69,8 @@ namespace Sample.Forms
             LoadFontResources(Assembly.GetAssembly(GetType()));
             LoadMapboxGL();
 
-            mapControl.Navigator.CenterOn(825890.75, 5423194.65);
-            mapControl.Navigator.ZoomTo(17.ToResolution()); // 1.2);
-            mapControl.Navigator.RotateTo(0);
+            map.Home = m => m.CenterOnAndZoomTo(new MPoint(825890.75, 5423194.65), m.Resolutions[7]);
+            map.Navigator.RotateTo(0);
         }
 
         public void LoadMapboxGL()
