@@ -235,6 +235,11 @@ namespace Mapsui.VectorTileLayers.OpenMapTiles
                         };
                     }
                 }
+                else if (source.Tiles != null && source.Tiles.Count > 0)
+                {
+                    jsonSource = source;
+                    jsonSource.Name = name;
+                }
             }
             catch (Exception ex)
             {
